@@ -1,58 +1,77 @@
 ---
 interface Props {
-	title: string;
-	description: string;
-	href: string;
+  title: string;
+  description: string;
+  href: string;
+  imageUrl?: string | undefined;
 }
 
-const { href, title, description: body } = Astro.props;
+const { href, title, description, imageUrl } = Astro.props;
 ---
 
 <li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
-	</a>
+  <a href={href}>
+    <div class="link-content">
+      <h2>
+        {title}
+      </h2>
+      <p class="link-content-description">
+        {description}
+      </p>
+      <p class="link-content-url">
+        {href}
+      </p>
+    </div>
+    {imageUrl && <img src={imageUrl} width="150px" height="auto" />}
+  </a>
 </li>
 <style>
-	.link-card {
-		list-style: none;
-		display: flex;
-		padding: 1px;
-		background-color: var(--background);
-		background-image: none;
-		background-size: 400%;
-		border-radius: 7px;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-	}
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: calc(1.5rem - 1px);
-		border-radius: 8px;
-		color: white;
-		background-color: #191919;
-		opacity: 0.8;
-	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
-	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-color: #555;
-	}
+  .link-card {
+    list-style: none;
+    display: flex;
+    padding: 1px;
+    background-color: var(--background);
+    background-image: none;
+    background-size: 400%;
+    border-radius: 7px;
+    background-position: 100%;
+    transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    background-color: #191919;
+  }
+  .link-card > a {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-decoration: none;
+    line-height: 1.4;
+
+    border-radius: 8px;
+    color: white;
+    opacity: 0.8;
+  }
+
+  .link-content {
+    padding: calc(1.5rem - 1px);
+
+		.link-content-description {
+			color: lightgray;
+		}
+		.link-content-url {
+			font-size: .8rem;
+		}
+  }
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  p {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+  .link-card:is(:hover, :focus-within) {
+    background-position: 0;
+    background-color: #555;
+  }
 </style>
