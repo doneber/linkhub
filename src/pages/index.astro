@@ -3,23 +3,37 @@ import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import cheerio from "cheerio";
 
-const resources = [
-  {
-    link: "https://squoosh.app/",
-    title: "Squoosh",
-    description: "Optimiza imagenes",
-  },
-  {
-    link: "https://tinypng.com/",
-    title: "Tinypng",
-    description: "Optimiza imagenes",
-  },
-  {
-    link: "https://coolors.co/",
-    title: "Coolors",
-    description: "Optimiza Genera paletas de colroes",
-  },
-];
+interface Resource {
+  url: string;
+  title: string;
+  description: string;
+}
+
+// TODO: Handle errors (use try catch )
+
+const CSV_URL =
+  "https://raw.githubusercontent.com/doneber/linkhub/main/public/resources.csv";
+
+const resources = (await fetch(CSV_URL)
+  .then((response) => response.text())
+  .then((text) => {
+    // Divide el texto en líneas
+    const lines = text.split("\n");
+    // Obtiene las claves de la primera línea y elimina los espacios en blanco
+    const keys = lines[0].split(",").map((key) => key.trim());
+    // Inicializa el array de objetos
+    const objectsArray = lines.slice(1).map((line) => {
+      // Divide cada línea por comas para obtener los valores
+      const values = line.split(",");
+      // Crea un objeto para la línea actual y lo retorna
+      let obj: any = {};
+      keys.forEach((key, index) => {
+        obj[key] = values[index].trim(); // También asegúrate de eliminar los espacios en blanco de los valores
+      });
+      return obj;
+    });
+    return objectsArray;
+  })) as Resource[];
 
 // TODO: Cachear las peticiones
 const getImageOG = async (url: string) => {
@@ -35,7 +49,7 @@ const getImageOG = async (url: string) => {
 
 const fullResourcesData = await Promise.all(
   resources.map(async (resource) => {
-    const ogImage = await getImageOG(resource.link);
+    const ogImage = await getImageOG(resource.url);
     return {
       ...resource,
       ogImage,
@@ -54,10 +68,10 @@ const fullResourcesData = await Promise.all(
       {
         fullResourcesData.map((resource) => (
           <Card
-            href={resource.link}
+            href={resource.url}
             title={resource.title}
             description={resource.description}
-						imageUrl={resource.ogImage}
+            imageUrl={resource.ogImage}
           />
         ))
       }
