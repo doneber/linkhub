@@ -1,11 +1,11 @@
 ---
 interface Props {
 	title: string;
-	body: string;
+	description: string;
 	href: string;
 }
 
-const { href, title, body } = Astro.props;
+const { href, title, description: body } = Astro.props;
 ---
 
 <li class="link-card">
@@ -24,7 +24,7 @@ const { href, title, body } = Astro.props;
 		list-style: none;
 		display: flex;
 		padding: 1px;
-		background-color: #23262d;
+		background-color: var(--background);
 		background-image: none;
 		background-size: 400%;
 		border-radius: 7px;
@@ -39,7 +39,7 @@ const { href, title, body } = Astro.props;
 		padding: calc(1.5rem - 1px);
 		border-radius: 8px;
 		color: white;
-		background-color: #23262d;
+		background-color: #191919;
 		opacity: 0.8;
 	}
 	h2 {
@@ -53,9 +53,6 @@ const { href, title, body } = Astro.props;
 	}
 	.link-card:is(:hover, :focus-within) {
 		background-position: 0;
-		background-image: var(--accent-gradient);
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent-light));
+		background-color: #555;
 	}
 </style>
