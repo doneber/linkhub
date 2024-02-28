@@ -1,11 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Searcher } from "../components/searcher/Searcher.tsx"
 ---
 
 <Layout title="Buscador - LinkHub">
-  <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora non optio
-    ducimus id omnis praesentium ipsa deserunt minus, commodi repellat illum
-    asperiores dolorem eos maxime dicta alias beatae modi fugit!
-  </p>
+  <Searcher client:load />
 </Layout>

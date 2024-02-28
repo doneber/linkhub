@@ -2,19 +2,16 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import cheerio from "cheerio";
+import type { Resource } from "../interfaces/resource.interface"
 
-interface Resource {
-  url: string;
-  title: string;
-  description: string;
-}
 
 // TODO: Handle errors (use try catch )
 
 const CSV_URL =
   "https://raw.githubusercontent.com/doneber/linkhub/main/public/resources.csv";
 
-const resources = (await fetch(CSV_URL)
+// TODO: use a reusable method
+  const resources = (await fetch(CSV_URL)
   .then((response) => response.text())
   .then((text) => {
     // Divide el texto en líneas
