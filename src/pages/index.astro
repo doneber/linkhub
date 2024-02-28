@@ -58,8 +58,7 @@ const fullResourcesData = await Promise.all(
 );
 ---
 
-<Layout title="Welcome to Astro.">
-  <main>
+<Layout title="LinkHub">
     <h1><span class="text-title">LinkHub</span></h1>
     <p class="text-description">
       Encuentra las mejores herramientas de desarrollo
@@ -76,19 +75,9 @@ const fullResourcesData = await Promise.all(
         ))
       }
     </ul>
-  </main>
 </Layout>
 
 <style>
-  main {
-    margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-    color: white;
-    font-size: 20px;
-    line-height: 1.6;
-  }
   .astro-a {
     position: absolute;
     top: -32px;
