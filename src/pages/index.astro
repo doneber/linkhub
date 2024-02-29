@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import { Card } from "../components/card/Card";
 import cheerio from "cheerio";
 import type { Resource } from "../interfaces/resource.interface"
 
@@ -119,11 +119,5 @@ const fullResourcesData = await Promise.all(
   }
   .instructions strong {
     color: rgb(var(--accent-light));
-  }
-  .link-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(38ch, 1fr));
-    gap: 1rem;
-    padding: 0;
   }
 </style>
