@@ -5,7 +5,7 @@ import { getResources, levenshteinDistance } from "../../utils";
 import { searchResults } from "../../store.ts";
 
 interface Props {
-  action: () => void;
+  action?: () => void;
 }
 
 export const Searcher = ({ action }: Props) => {
@@ -13,18 +13,48 @@ export const Searcher = ({ action }: Props) => {
 
   const getResourcesMatches = (text: string) => {
     return resources.filter((resource) => {
-      return levenshteinDistance(resource.title, text) <= 3;
+      return levenshteinDistance(resource.title, text) <= 5;
     });
   };
 
-  useEffect(() => {
-    const CSV_URL = "/resources.csv";
-    // "https://raw.githubusercontent.com/doneber/linkhub/main/public/resources.csv";
+  function getQueryParamSearch() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const textQuery = urlSearchParams.get("q");
+    return textQuery ?? "";
+  }
 
-    getResources(CSV_URL).then((data) => setResources(data));
+  useEffect(() => {
+    const textQuery = getQueryParamSearch();
+
+    if (textQuery) {
+      const $inputSearcher: HTMLInputElement =
+        document.querySelector("#textToSearch")!;
+      $inputSearcher.value = textQuery;
+    }
+
+    async function getResourcesInit() {
+      if (resources.length === 0) {
+        const CSV_URL = "/resources.csv";
+        // "https://raw.githubusercontent.com/doneber/linkhub/main/public/resources.csv";
+        await getResources(CSV_URL).then((data) => {
+          setResources(data);
+        });
+      }
+    }
+
+    getResourcesInit();
   }, []);
 
-  const handleSearch = (event: any) => {
+  useEffect(() => {
+    async function searching() {
+      const textQuery = getQueryParamSearch();
+      const resourcesMatched = getResourcesMatches(textQuery);
+      searchResults.set(resourcesMatched);
+    }
+    searching();
+  }, [resources]);
+
+  const handleSearch = async (event: any) => {
     event.preventDefault();
 
     if (action) {
@@ -33,13 +63,20 @@ export const Searcher = ({ action }: Props) => {
     const formData = new FormData(event.target);
 
     const textToSearch = formData.get("textToSearch") as string; // ojo
+
+    // update the url
+    const urlSearchParams = new URLSearchParams();
+    urlSearchParams.append("q", textToSearch);
+    window.history.pushState({}, "", `/search?${urlSearchParams.toString()}`);
+
+    // searching
     const resourcesMatched = getResourcesMatches(textToSearch);
     searchResults.set(resourcesMatched);
   };
 
   return (
     <form className="searcher-container" onSubmit={handleSearch}>
-      <input type="text" name="textToSearch" id="" />
+      <input type="text" name="textToSearch" id="textToSearch" />
       <button type={"submit"}>
         <svg
           width="30"

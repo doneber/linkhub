@@ -1,5 +1,5 @@
 ---
-import { SearcherContainer } from "../components/searcher/SearchContainer";
+import { SearcherQuery } from "../components/searcher/SearcherQuery";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -8,7 +8,7 @@ import Layout from "../layouts/Layout.astro";
   <p class="text-description">
     Encuentra las mejores herramientas de desarrollo
   </p>
-  <SearcherContainer client:load />
+  <SearcherQuery client:load />
 </Layout>
 
 <style>
