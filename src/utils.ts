@@ -1,3 +1,4 @@
+import type { Resource } from './interfaces/resource.interface';
 export function levenshteinDistance(a: string, b: string) {
   const matriz = [];
 
@@ -26,3 +27,26 @@ export function levenshteinDistance(a: string, b: string) {
 
   return matriz[a.length][b.length];
 }
+
+export async function getResources (url: string) {
+  return await fetch(url)
+    .then((response) => response.text())
+    .then((text) => {
+      // Divide el texto en líneas
+      const lines = text.split("\n");
+      // Obtiene las claves de la primera línea y elimina los espacios en blanco
+      const keys = lines[0].split(",").map((key) => key.trim());
+      // Inicializa el array de objetos
+      const objectsArray: Resource[] = lines.slice(1).map((line) => {
+        // Divide cada línea por comas para obtener los valores
+        const values = line.split(",");
+        // Crea un objeto para la línea actual y lo retorna
+        let obj: any = {};
+        keys.forEach((key, index) => {
+          obj[key] = values[index].trim(); // También asegúrate de eliminar los espacios en blanco de los valores
+        });
+        return obj;
+      });
+      return objectsArray;
+    });
+};

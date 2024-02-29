@@ -3,7 +3,11 @@
     <img src="/logo.svg" alt="Logo de Linkhub" >
     Home
   </a>
-  <a href="/search">Buscador</a>
+  <div class="container-links">
+
+    <a href="/search">Buscador</a>
+    <a href="/all">Todos</a>
+  </div>
 </nav>
 
 <style>
@@ -16,9 +20,10 @@
     max-width: calc(100% - 2rem);
     a {
       color: white;
-      font-size: 20px;
+      font-size: .95rem;
       line-height: 1.6;
       text-decoration: none;
+      text-transform: uppercase;
     }
     a:hover {
       text-decoration: underline;
@@ -31,7 +36,12 @@
 
     img {
       width: 1.2rem;
-      margin-top: .3rem;
+      margin-top: .2rem;
     }
+  }
+
+  .container-links {
+    display: flex;
+    gap: .7rem;
   }
 </style>

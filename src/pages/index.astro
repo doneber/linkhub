@@ -1,89 +1,17 @@
 ---
+import { SearcherContainer } from "../components/searcher/SearchContainer";
 import Layout from "../layouts/Layout.astro";
-import { Card } from "../components/card/Card";
-import cheerio from "cheerio";
-import type { Resource } from "../interfaces/resource.interface"
-
-
-// TODO: Handle errors (use try catch )
-
-const CSV_URL =
-  "https://raw.githubusercontent.com/doneber/linkhub/main/public/resources.csv";
-
-// TODO: use a reusable method
-  const resources = (await fetch(CSV_URL)
-  .then((response) => response.text())
-  .then((text) => {
-    // Divide el texto en líneas
-    const lines = text.split("\n");
-    // Obtiene las claves de la primera línea y elimina los espacios en blanco
-    const keys = lines[0].split(",").map((key) => key.trim());
-    // Inicializa el array de objetos
-    const objectsArray = lines.slice(1).map((line) => {
-      // Divide cada línea por comas para obtener los valores
-      const values = line.split(",");
-      // Crea un objeto para la línea actual y lo retorna
-      let obj: any = {};
-      keys.forEach((key, index) => {
-        obj[key] = values[index].trim(); // También asegúrate de eliminar los espacios en blanco de los valores
-      });
-      return obj;
-    });
-    return objectsArray;
-  })) as Resource[];
-
-// TODO: Cachear las peticiones
-const getImageOG = async (url: string) => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Error en la solicitud HTTP: ${response.status}`);
-  }
-  const html = await response.text();
-  const $ = cheerio.load(html);
-  const ogImage = $('meta[property="og:image"]').attr("content");
-  return ogImage;
-};
-
-const fullResourcesData = await Promise.all(
-  resources.map(async (resource) => {
-    const ogImage = await getImageOG(resource.url);
-    return {
-      ...resource,
-      ogImage,
-    };
-  })
-);
 ---
 
 <Layout title="LinkHub">
-    <h1><span class="text-title">LinkHub</span></h1>
-    <p class="text-description">
-      Encuentra las mejores herramientas de desarrollo
-    </p>
-    <ul role="list" class="link-card-grid">
-      {
-        fullResourcesData.map((resource) => (
-          <Card
-            href={resource.url}
-            title={resource.title}
-            description={resource.description}
-            imageUrl={resource.ogImage}
-          />
-        ))
-      }
-    </ul>
+  <h1>LinkHub</h1>
+  <p class="text-description">
+    Encuentra las mejores herramientas de desarrollo
+  </p>
+  <SearcherContainer client:load />
 </Layout>
 
 <style>
-  .astro-a {
-    position: absolute;
-    top: -32px;
-    left: 50%;
-    transform: translatex(-50%);
-    width: 220px;
-    height: auto;
-    z-index: -1;
-  }
   h1 {
     font-size: 4rem;
     font-weight: 700;
@@ -91,33 +19,8 @@ const fullResourcesData = await Promise.all(
     text-align: center;
     margin-bottom: 1em;
   }
-  .text-title {
-    /* color: #00a6ed; */
-  }
-
   .text-description {
     font-size: 1.8rem;
     text-align: center;
-  }
-  .instructions {
-    margin-bottom: 2rem;
-    border: 1px solid rgba(var(--accent-light), 25%);
-    background: linear-gradient(
-      rgba(var(--accent-dark), 66%),
-      rgba(var(--accent-dark), 33%)
-    );
-    padding: 1.5rem;
-    border-radius: 8px;
-  }
-  .instructions code {
-    font-size: 0.8em;
-    font-weight: bold;
-    background: rgba(var(--accent-light), 12%);
-    color: rgb(var(--accent-light));
-    border-radius: 4px;
-    padding: 0.3em 0.4em;
-  }
-  .instructions strong {
-    color: rgb(var(--accent-light));
   }
 </style>

@@ -1,60 +1,40 @@
 import { useEffect, useState } from "preact/hooks";
 import "./style.css";
-import type { Resource } from "../../interfaces/resource.interface"
-import { levenshteinDistance } from '../../utils'
-import { searchResults } from '../../store.ts';
+import type { Resource } from "../../interfaces/resource.interface";
+import { getResources, levenshteinDistance } from "../../utils";
+import { searchResults } from "../../store.ts";
 
+interface Props {
+  action: () => void;
+}
 
-export const Searcher = () => {
+export const Searcher = ({ action }: Props) => {
   const [resources, setResources] = useState<Resource[]>([]);
 
-  // TODO: Use a reusable function
-  const getResources = async (url: string) => {
-    await fetch(url)
-      .then((response) => response.text())
-      .then((text) => {
-        // Divide el texto en líneas
-        const lines = text.split("\n");
-        // Obtiene las claves de la primera línea y elimina los espacios en blanco
-        const keys = lines[0].split(",").map((key) => key.trim());
-        // Inicializa el array de objetos
-        const objectsArray = lines.slice(1).map((line) => {
-          // Divide cada línea por comas para obtener los valores
-          const values = line.split(",");
-          // Crea un objeto para la línea actual y lo retorna
-          let obj: any = {};
-          keys.forEach((key, index) => {
-            obj[key] = values[index].trim(); // También asegúrate de eliminar los espacios en blanco de los valores
-          });
-          return obj;
-        });
-        setResources(objectsArray);
-        return objectsArray;
-      });
+  const getResourcesMatches = (text: string) => {
+    return resources.filter((resource) => {
+      return levenshteinDistance(resource.title, text) <= 3;
+    });
   };
-
-
-  const getResourcesMatches = (text:string) => {
-    return resources.filter(resource => {
-      return levenshteinDistance(resource.title, text) < 3
-    })
-  }
 
   useEffect(() => {
     const CSV_URL = "/resources.csv";
     // "https://raw.githubusercontent.com/doneber/linkhub/main/public/resources.csv";
 
-    getResources(CSV_URL); 
+    getResources(CSV_URL).then((data) => setResources(data));
   }, []);
 
   const handleSearch = (event: any) => {
     event.preventDefault();
+
+    if (action) {
+      action();
+    }
     const formData = new FormData(event.target);
 
-    const textToSearch = formData.get("textToSearch") as string // ojo
-    const resourcesMatched = getResourcesMatches(textToSearch)
-    searchResults.set(resourcesMatched)
-
+    const textToSearch = formData.get("textToSearch") as string; // ojo
+    const resourcesMatched = getResourcesMatches(textToSearch);
+    searchResults.set(resourcesMatched);
   };
 
   return (
