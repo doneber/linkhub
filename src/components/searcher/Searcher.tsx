@@ -2,10 +2,13 @@ import { useEffect, useState } from "preact/hooks";
 import "./style.css";
 import type { Resource } from "../../interfaces/resource.interface"
 import { levenshteinDistance } from '../../utils'
+import { searchResults } from '../../store.ts';
+
 
 export const Searcher = () => {
   const [resources, setResources] = useState<Resource[]>([]);
 
+  // TODO: Use a reusable function
   const getResources = async (url: string) => {
     await fetch(url)
       .then((response) => response.text())
@@ -44,19 +47,18 @@ export const Searcher = () => {
     getResources(CSV_URL); 
   }, []);
 
-  const search = (event: any) => {
+  const handleSearch = (event: any) => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
     const textToSearch = formData.get("textToSearch") as string // ojo
     const resourcesMatched = getResourcesMatches(textToSearch)
-    console.log({resourcesMatched});
-    
+    searchResults.set(resourcesMatched)
 
   };
 
   return (
-    <form className="searcher-container" onSubmit={search}>
+    <form className="searcher-container" onSubmit={handleSearch}>
       <input type="text" name="textToSearch" id="" />
       <button type={"submit"}>
         <svg

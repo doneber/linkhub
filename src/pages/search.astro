@@ -1,8 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Searcher } from "../components/searcher/Searcher.tsx"
+import { SearchResults } from "../components/searcher/SearchResults.tsx"
 ---
 
 <Layout title="Buscador - LinkHub">
   <Searcher client:load />
+  <SearchResults client:load />
 </Layout>
