@@ -1,4 +1,4 @@
-import type { Resource } from './interfaces/resource.interface';
+import type { Resource } from "./interfaces/resource.interface";
 export function levenshteinDistance(a: string, b: string) {
   const matriz = [];
 
@@ -28,7 +28,19 @@ export function levenshteinDistance(a: string, b: string) {
   return matriz[a.length][b.length];
 }
 
-export async function getResources (url: string) {
+// TODO: Separar las funciones para el cliente y para el build
+
+//
+export async function fetchResources(
+  url = "/api/resources.json"
+): Promise<{ resources: Resource[] }> {
+  return await fetch(url).then((res) => {
+    return res.json();
+  });
+}
+
+//  getResources to build resources.json API
+export async function getResources(url: string) {
   return await fetch(url)
     .then((response) => response.text())
     .then((text) => {
@@ -49,4 +61,4 @@ export async function getResources (url: string) {
       });
       return objectsArray;
     });
-};
+}

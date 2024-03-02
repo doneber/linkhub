@@ -1,7 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 import "./style.css";
 import type { Resource } from "../../interfaces/resource.interface";
-import { getResources, levenshteinDistance } from "../../utils";
+import { levenshteinDistance, fetchResources } from "../../utils";
 import { searchResults } from "../../store.ts";
 
 interface Props {
@@ -32,13 +32,13 @@ export const Searcher = ({ action }: Props) => {
       $inputSearcher.value = textQuery;
     }
 
-    async function getResourcesInit() {
+    function getResourcesInit() {
       if (resources.length === 0) {
-        const CSV_URL = "/resources.csv";
-        // "https://raw.githubusercontent.com/doneber/linkhub/main/public/resources.csv";
-        await getResources(CSV_URL).then((data) => {
-          setResources(data);
-        });
+        fetchResources().then(
+          (data: { resources: Resource[] }) => {
+            setResources(data.resources);
+          }
+        );
       }
     }
 
@@ -46,7 +46,7 @@ export const Searcher = ({ action }: Props) => {
   }, []);
 
   useEffect(() => {
-    async function searching() {
+    function searching() {
       const textQuery = getQueryParamSearch();
       const resourcesMatched = getResourcesMatches(textQuery);
       searchResults.set(resourcesMatched);
@@ -54,7 +54,7 @@ export const Searcher = ({ action }: Props) => {
     searching();
   }, [resources]);
 
-  const handleSearch = async (event: any) => {
+  const handleSearch = (event: any) => {
     event.preventDefault();
 
     if (action) {
