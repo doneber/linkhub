@@ -1,4 +1,4 @@
-input {
+.input {
   all: unset;
   background: var(--background);
   border: 1px solid #333;
@@ -14,15 +14,15 @@ input {
   justify-content: center;
   align-items: center;
   gap: .5rem;
+}
 
-  button {
-    all: unset;
+.searchButtonIcon {
+  all: unset;
 
-    padding: 8px 8px 0;
-    border-radius: 7px;
-  }
-  button:hover {
-    cursor: pointer;
-    background-color: #333;
-  }
+  padding: 8px 8px 0;
+  border-radius: 7px;
+}
+.searchButtonIcon:hover {
+  cursor: pointer;
+  background-color: #333;
 }

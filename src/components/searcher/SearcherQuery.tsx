@@ -3,8 +3,8 @@ import "./style.css";
 export const SearcherQuery = () => {
   return (
     <form action="/search" method="GET" className="searcher-container">
-      <input type="text" name="q" />
-      <button type={"submit"}>
+      <input type="text" name="q" className="input" />
+      <button type={"submit"} className="searchButtonIcon">
         <svg
           width="30"
           fill="#fff"

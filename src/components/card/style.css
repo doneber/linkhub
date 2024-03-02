@@ -46,3 +46,9 @@ p {
   background-position: 0;
   background-color: #555;
 }
+
+@media only screen and (max-width: 600px) {
+  img {
+    display: none;
+  }
+}

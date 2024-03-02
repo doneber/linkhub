@@ -76,8 +76,8 @@ export const Searcher = ({ action }: Props) => {
 
   return (
     <form className="searcher-container" onSubmit={handleSearch}>
-      <input type="text" name="textToSearch" id="textToSearch" />
-      <button type={"submit"}>
+      <input type="text" name="textToSearch" id="textToSearch" className="input" />
+      <button type={"submit"} className="searchButtonIcon">
         <svg
           width="30"
           fill="#fff"
