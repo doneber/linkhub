@@ -48,7 +48,7 @@ p {
 }
 
 @media only screen and (max-width: 600px) {
-  img {
+  .link-card img {
     display: none;
   }
 }

@@ -11,24 +11,32 @@ export const GET: APIRoute = async ({ params, request }) => {
 
   const resources = (await getResources(CSV_URL)) as Resource[];
 
-  // TODO: No solo obtener las imagenes OG, sino también el título y la descripción
-  const getImageOG = async (url: string) => {
+  const getMetadata = async (url: string) => {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Error en la solicitud HTTP: ${response.status}`);
     }
     const html = await response.text();
     const $ = cheerio.load(html);
-    const ogImage = $('meta[property="og:image"]').attr("content");
-    return ogImage;
+    const imageUrl = $('meta[property="og:image"]').attr("content") ?? undefined;
+    const fullTitle = $("title").text();
+    const titleParts = fullTitle.split(/ – | - /); // Usa una expresión regular para cubrir ambos separadores
+    const title = titleParts[0] ?? ""; // Toma solo la primera parte, asumiendo que es el "verdadero" título
+
+    let description = $('meta[property="og:description"]').attr("content");
+    if (!description) {
+      description = $('meta[name="description"]').attr("content") ?? "";
+    }
+
+    return { title, description, imageUrl };
   };
 
   const fullResourcesData = await Promise.all(
     resources.map(async (resource) => {
-      const ogImage = await getImageOG(resource.url);
+      const metadata = await getMetadata(resource.url);
       return {
         ...resource,
-        imageUrl: ogImage,
+        ...metadata,
       };
     })
   );
