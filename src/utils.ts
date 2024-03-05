@@ -39,26 +39,40 @@ export async function fetchResources(
   });
 }
 
+
+interface CsvRow {
+  url: string;
+  hashtags: string[];
+}
+
+function parseCsvToObjects(csvText: string) {
+  const lines: string[] = csvText.split("\n").filter((line) => line.trim() !== "");
+  const keys: string[] = lines[0].split(",").map((key) => key.trim());
+  const objectsArray: CsvRow[] = lines.slice(1).map((line: string) => {
+    const values: string[] = line.split(",").map((value) => value.trim());
+    let obj: Partial<CsvRow> = {}; // Usamos Partial para poder construir el objeto de manera incremental
+    keys.forEach((key, index) => {
+      if (key === "hashtags") {
+        // Maneja el caso en que la fila no tenga hashtags o la columna esté vacía
+        const hashtags: string = values[index] || "";
+        obj.hashtags = hashtags
+          ? hashtags.split(" ").filter((tag) => tag.startsWith("#"))
+          : [];
+      } else {
+        obj.url = values[index];
+      }
+    });
+    return obj as CsvRow; // Afirmamos que obj es de tipo CsvRow
+  });
+  console.log({objectsArray});
+  return objectsArray;
+}
+
 //  getResources to build resources.json API
 export async function getResources(url: string) {
   return await fetch(url)
     .then((response) => response.text())
-    .then((text) => {
-      // Divide el texto en líneas
-      const lines = text.split("\n");
-      // Obtiene las claves de la primera línea y elimina los espacios en blanco
-      const keys = lines[0].split(",").map((key) => key.trim());
-      // Inicializa el array de objetos
-      const objectsArray: Resource[] = lines.slice(1).map((line) => {
-        // Divide cada línea por comas para obtener los valores
-        const values = line.split(",");
-        // Crea un objeto para la línea actual y lo retorna
-        let obj: any = {};
-        keys.forEach((key, index) => {
-          obj[key] = values[index].trim(); // También asegúrate de eliminar los espacios en blanco de los valores
-        });
-        return obj;
-      });
-      return objectsArray;
+    .then((csvText) => {
+      return parseCsvToObjects(csvText)
     });
 }
