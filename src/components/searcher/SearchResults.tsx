@@ -21,6 +21,7 @@ export const SearchResults = () => {
               title={resource.title}
               description={resource.description}
               imageUrl={resource.imageUrl}
+              hashtags={resource.hashtags}
             />
           ))}
       </ul>
