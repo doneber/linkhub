@@ -19,6 +19,7 @@
     "@astrojs/preact": "3.1.1",
     "@astrojs/tailwind": "^5.1.0",
     "astro": "4.4.5",
+    "astro-devtoolbar-tailwind": "^0.0.8",
     "cheerio": "1.0.0-rc.12",
     "nanostores": "0.10.0",
     "preact": "10.19.6",
