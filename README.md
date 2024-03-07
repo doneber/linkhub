@@ -72,4 +72,6 @@ Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE.md
 
 ## 📢 Agradecimientos
 
-Aquí deberían listarse a todos los contribuyentes 😅.
+¡Gracias a todos los contribuyentes! 😅.
+
+[![Contribuidores](https://contrib.rocks/image?repo=doneber/linkhub&theme=flat)](https://github.com/doneber/linkhub/graphs/contributors)
