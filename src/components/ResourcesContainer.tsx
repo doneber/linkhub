@@ -1,18 +1,18 @@
-import type { Resource } from "./../interfaces/resource.interface";
-import { useEffect, useState } from "preact/hooks";
-import { Card } from './card/Card'
-import { fetchResources } from "../utils";
+import { useEffect, useState } from "preact/hooks"
+import { fetchResources } from "../utils"
+import type { Resource } from "./../interfaces/resource.interface"
+import { Card } from "./card/Card"
 
 export const ResourcesContainer = () => {
-  const [resources, setResources] = useState<Resource[]>([]);
+  const [resources, setResources] = useState<Resource[]>([])
 
   useEffect(() => {
     fetchResources().then(
       (data) => {
-        setResources(data.resources);
+        setResources(data.resources)
       }
-    );
-  }, []);
+    )
+  }, [])
 
   return (
     <ul role="list" class="link-card-grid">
@@ -26,5 +26,5 @@ export const ResourcesContainer = () => {
         />
       ))}
     </ul>
-  );
-};
+  )
+}

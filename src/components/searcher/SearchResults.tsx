@@ -1,14 +1,14 @@
-import type { Resource } from "../../interfaces/resource.interface.js";
-import { searchResults } from "../../store.js";
-import { useState } from "preact/hooks";
-import { Card } from "../card/Card.jsx";
+import { useState } from "preact/hooks"
+import type { Resource } from "../../interfaces/resource.interface.js"
+import { searchResults } from "../../store.js"
+import { Card } from "../card/Card.jsx"
 
 export const SearchResults = () => {
-  const [resources, setResources] = useState<Resource[]>([]);
+  const [resources, setResources] = useState<Resource[]>([])
 
   searchResults.subscribe((result) => {
-    setResources(result as Resource[]);
-  });
+    setResources(result as Resource[])
+  })
 
   return (
     <div>
@@ -26,5 +26,5 @@ export const SearchResults = () => {
           ))}
       </ul>
     </div>
-  );
-};
+  )
+}

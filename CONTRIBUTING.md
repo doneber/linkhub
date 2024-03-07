@@ -15,7 +15,7 @@ Hay muchas formas de contribuir a LinkHub:
 
 Para mantener el proyecto organizado y eficiente, pedimos seguir estas simples reglas:
 
-- **Guía de Estilo de Código**: Adoptamos [StandardJs](https://standardjs.com/#typescript) para TypeScript. Asegúrate de seguir una guía de estilo.
+- **Guía de Estilo de Código**: Adoptamos ESLint & Prettier con TypeScript. Asegúrate de seguir una guía de estilo.
 
 - **Documentación**: Si estás añadiendo nuevas características, actualiza la documentación correspondiente.
 
