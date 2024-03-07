@@ -70,6 +70,8 @@ Consulta nuestro archivo [CONTRIBUTING.md](CONTRIBUTING.md) para más informaci�
 
 Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE.md](LICENSE.md) para detalles.
 
-## 📢 Agradecimientos
+## 📢 Agradecimientos 🤝
 
-Aquí deberían listarse a todos los contribuyentes 😅.
+<a href="https://github.com/doneber/linkhub/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=doneber/linkhub" />
+</a>
