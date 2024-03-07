@@ -1,11 +1,11 @@
-import "./style.css";
+import "./style.css"
 
 interface Props {
-  title: string;
-  description: string;
-  href: string;
-  imageUrl?: string | undefined;
-  hashtags: string[];
+  title: string
+  description: string
+  href: string
+  imageUrl?: string | undefined
+  hashtags: string[]
 }
 
 export const Card = ({ href, title, description, imageUrl, hashtags }: Props) => {
@@ -26,5 +26,5 @@ export const Card = ({ href, title, description, imageUrl, hashtags }: Props) =>
         {imageUrl && <img src={imageUrl} width="150px" height="auto" />}
       </a>
     </li>
-  );
-};
+  )
+}

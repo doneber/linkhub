@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.css"
 
 export const SearcherQuery = () => {
   return (
@@ -16,5 +16,5 @@ export const SearcherQuery = () => {
         </svg>
       </button>
     </form>
-  );
-};
+  )
+}
