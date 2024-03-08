@@ -1,4 +1,4 @@
-import type { Resource } from "./interfaces/resource.interface"
+import type { Resource } from "@interfaces/resource.interface"
 
 export function levenshteinDistance(a: string, b: string) {
   const matriz = []
