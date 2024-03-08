@@ -15,7 +15,7 @@ export const ResourcesContainer = () => {
   }, [])
 
   return (
-    <ul role="list" class="link-card-grid">
+    <ul role="list" class="flex flex-col gap-4 p-0;">
       {resources.map((resource) => (
         <Card
           href={resource.url}

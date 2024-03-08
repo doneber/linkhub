@@ -1,10 +1,8 @@
-import "./style.css"
-
 export const SearcherQuery = () => {
   return (
-    <form action="/search" method="GET" className="searcher-container">
-      <input type="text" name="q" className="input" />
-      <button type={"submit"} className="searchButtonIcon">
+    <form action="/search" method="GET" className="flex justify-center items-center gap-2">
+      <input type="text" name="q" className="border rounded-lg border-solid border-[#333] bg-[#191919] w-full h-10 max-w-[520px] px-4 py-1" />
+      <button type={"submit"} className="pt-2 pb-0 px-2 rounded-lg hover:bg-[#333]">
         <svg
           width="30"
           fill="#fff"

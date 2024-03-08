@@ -11,7 +11,7 @@ const { title } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="bg-[224px] font-sans">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
@@ -21,9 +21,9 @@ const { title } = Astro.props
     <title>{title}</title>
     <ViewTransitions />
   </head>
-  <body>
+  <body class="min-h-screen flex flex-col text-white text-pretty">
     <Navbar />
-    <main>
+    <main class="w-[800px] min-h-[75vh] max-w-[calc(100%_-_2rem)] text-xl leading-6 mx-auto my-0 p-4 ">
       <slot />
     </main>
     <Footer />
@@ -41,37 +41,7 @@ const { title } = Astro.props
       --background: #191919;
     }
     html {
-      font-family: system-ui, sans-serif;
       background: var(--background);
-      background-size: 224px;
-    }
-
-    * {
-      text-wrap: pretty;
-    }
-
-    body {
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-    }
-    main {
-      margin: 0 auto;
-      padding: 1rem;
-      width: 800px;
-      min-height: 75vh;
-      max-width: calc(100% - 2rem);
-      color: white;
-      font-size: 20px;
-      line-height: 1.6;
-    }
-    .link-card-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-			padding: 0;
-    }
+	}
   </style>
 </html>

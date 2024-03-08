@@ -12,8 +12,8 @@ export const SearchResults = () => {
 
   return (
     <div>
-      <h4>Resultados:</h4>
-      <ul class="link-card-grid">
+      <h4 className="font-bold my-5 text-xl">Resultados:</h4>
+      <ul className="flex flex-col gap-4 p-0 my-4">
         {resources.map &&
           resources.map((resource) => (
             <Card

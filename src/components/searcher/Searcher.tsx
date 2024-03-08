@@ -1,5 +1,4 @@
 import { useEffect, useState } from "preact/hooks"
-import "./style.css"
 import type { Resource } from "../../interfaces/resource.interface"
 import { fetchResources, levenshteinDistance } from "../../utils"
 import { searchResults } from "../../store.ts"
@@ -75,9 +74,9 @@ export const Searcher = ({ action }: Props) => {
   }
 
   return (
-    <form className="searcher-container" onSubmit={handleSearch}>
-      <input type="text" name="textToSearch" id="textToSearch" className="input" />
-      <button type={"submit"} className="searchButtonIcon">
+    <form className="flex justify-center items-center gap-2" onSubmit={handleSearch}>
+      <input type="text" name="textToSearch" id="textToSearch" className=" border rounded-lg border-solid bg-[#191919] border-[#333] w-full h-10 max-w-[520px] px-4 py-1" />
+      <button type={"submit"} className="pt-2 pb-0 px-2 rounded-lg hover:bg-[#333]">
         <svg
           width="30"
           fill="#fff"
