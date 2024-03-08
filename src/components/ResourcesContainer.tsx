@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks"
-import { fetchResources } from "../utils"
-import type { Resource } from "./../interfaces/resource.interface"
+import { fetchResources } from "@utils/utils"
+import type { Resource } from "@interfaces/resource.interface"
 import { Card } from "./card/Card"
 
 export const ResourcesContainer = () => {

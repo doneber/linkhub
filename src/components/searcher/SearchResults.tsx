@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks"
-import type { Resource } from "../../interfaces/resource.interface.js"
-import { searchResults } from "../../store.js"
-import { Card } from "../card/Card.jsx"
+import type { Resource } from "@interfaces/resource.interface.ts"
+import { searchResults } from "@src/store.ts"
+import { Card } from "../card/Card.tsx"
 
 export const SearchResults = () => {
   const [resources, setResources] = useState<Resource[]>([])

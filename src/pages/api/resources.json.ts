@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro"
 import cheerio from "cheerio"
-import { getResources } from "../../utils"
+import { getResources } from "@utils/utils"
 
 export const GET: APIRoute = async () => {
   // get resources

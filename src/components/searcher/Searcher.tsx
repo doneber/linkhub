@@ -1,7 +1,7 @@
 import { useEffect, useState } from "preact/hooks"
-import type { Resource } from "../../interfaces/resource.interface"
-import { fetchResources, levenshteinDistance } from "../../utils"
-import { searchResults } from "../../store.ts"
+import type { Resource } from "@interfaces/resource.interface"
+import { fetchResources, levenshteinDistance } from "@utils/utils.ts"
+import { searchResults } from "@src/store.ts"
 
 interface Props {
   action?: () => void
