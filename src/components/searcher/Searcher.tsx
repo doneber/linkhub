@@ -1,81 +1,39 @@
-import { useEffect, useState } from "preact/hooks"
-import type { Resource } from "@interfaces/resource.interface"
-import { fetchResources, levenshteinDistance } from "@utils/utils.ts"
 import { searchResults } from "@src/store.ts"
+import { fetchResources, levenshteinDistance } from "@utils/utils.ts"
+import { useEffect, useRef, useState } from "preact/hooks"
 
-interface Props {
-  action?: () => void
+// TODO: Modularizar los recursos
+async function getResourcesInit() {
+	const data = await fetchResources()
+	return data.resources
 }
 
-export const Searcher = ({ action }: Props) => {
-  const [resources, setResources] = useState<Resource[]>([])
+const resources = await getResourcesInit()
 
-  const getResourcesMatches = (text: string) => {
-    return resources.filter((resource) => {
-      return levenshteinDistance(resource.title, text) <= 5
+export const Searcher = () => {
+	const [query, setQuery] = useState("")
+	const inputRef = useRef<HTMLInputElement>(null)
+
+  const handleSearch = () => {
+		setQuery(inputRef.current!.value)
+  }
+
+	useEffect(() => {
+		const urlSearchParams = new URLSearchParams(window.location.search)
+		inputRef.current!.value = urlSearchParams.get("q") ?? ""
+		setQuery(inputRef.current!.value)
+	}, [])
+
+	useEffect(() => {
+		const resourcesMatched = resources.filter((resource) => {
+      return levenshteinDistance(resource.title, query) <= 2
     })
-  }
-
-  function getQueryParamSearch() {
-    const urlSearchParams = new URLSearchParams(window.location.search)
-    const textQuery = urlSearchParams.get("q")
-    return textQuery ?? ""
-  }
-
-  useEffect(() => {
-    const textQuery = getQueryParamSearch()
-
-    if (textQuery) {
-      const $inputSearcher: HTMLInputElement =
-        document.querySelector("#textToSearch")!
-      $inputSearcher.value = textQuery
-    }
-
-    function getResourcesInit() {
-      if (resources.length === 0) {
-        fetchResources().then(
-          (data: { resources: Resource[] }) => {
-            setResources(data.resources)
-          }
-        )
-      }
-    }
-
-    getResourcesInit()
-  }, [])
-
-  useEffect(() => {
-    function searching() {
-      const textQuery = getQueryParamSearch()
-      const resourcesMatched = getResourcesMatches(textQuery)
-      searchResults.set(resourcesMatched)
-    }
-    searching()
-  }, [resources])
-
-  const handleSearch = (event: any) => {
-    event.preventDefault()
-
-    if (action) {
-      action()
-    }
-    const formData = new FormData(event.target)
-
-    const textToSearch = formData.get("textToSearch") as string // ojo
-
-    // update the url
-    const urlSearchParams = new URLSearchParams()
-    urlSearchParams.append("q", textToSearch)
-    window.history.pushState({}, "", `/search?${urlSearchParams.toString()}`)
-
-    // searching
-    const resourcesMatched = getResourcesMatches(textToSearch)
     searchResults.set(resourcesMatched)
-  }
+	}, [query])
 
   return (
     <form className="flex justify-center items-center gap-2" onSubmit={handleSearch}>
-      <input type="text" name="textToSearch" id="textToSearch" className=" border rounded-lg border-solid bg-[#191919] border-[#333] w-full h-10 max-w-[520px] px-4 py-1" />
+      <input ref={inputRef} required name="q" className="border rounded-lg border-solid bg-[#191919] border-[#333] w-full h-10 max-w-[520px] px-4 py-1" />
       <button type={"submit"} className="pt-2 pb-0 px-2 rounded-lg hover:bg-[#333]">
         <svg
           width="30"
