@@ -20,6 +20,15 @@ const { title } = Astro.props
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ViewTransitions />
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMQSEBG01K"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			// eslint-disable-next-line @stylistic/ts/space-before-blocks, prefer-rest-params, semi, @stylistic/js/block-spacing, no-undef
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-EMQSEBG01K');
+		</script>
   </head>
   <body class="min-h-screen flex flex-col text-white text-pretty">
     <Navbar />
