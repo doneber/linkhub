@@ -1,23 +1,18 @@
-import type { Filter } from "@src/interfaces/filter.interface"
-import type { Resource } from "@src/interfaces/resource.interface"
-import { searchResults } from "@src/store"
-import { levenshteinDistance } from "@utils/utils.ts"
-import { useState } from "preact/hooks"
+import type { Resource } from "@src/interfaces/resource.interface";
+import { filtersResources } from "@src/store";
+import { levenshteinDistance } from "@utils/utils.ts";
 
 export function useFilters() {
-	const [filters, setFilters] = useState<Filter>({
-		query: "",
-		tags: []
-	})
+	const filters = filtersResources.get()
+	const setFilters = filtersResources.set
 
 	const filterResources = (resources: Resource[]) => {
-		// TODO: Refactor
-
-		const resourcesMatched = resources.filter((resource) => {
-      return levenshteinDistance(resource.title.toLocaleLowerCase(), filters.query.toLocaleLowerCase()) <= 2
+		// TODO: improve the searcher algorithm
+		const query = filters.query.toLocaleLowerCase()
+		return resources.filter((resource) => {
+			const title = resource.title.toLocaleLowerCase()
+      return levenshteinDistance(title, query) <= 3
     })
-		searchResults.set(resourcesMatched) // eyes
-		return resourcesMatched
 	}
 
 	return { setFilters, filterResources }

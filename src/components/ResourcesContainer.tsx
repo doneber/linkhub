@@ -1,18 +1,8 @@
-import { useEffect, useState } from "preact/hooks"
-import { fetchResources } from "@utils/utils"
-import type { Resource } from "@interfaces/resource.interface"
+import { useResources } from "@src/hooks/useResources"
 import { Card } from "./card/Card"
 
 export const ResourcesContainer = () => {
-  const [resources, setResources] = useState<Resource[]>([])
-
-  useEffect(() => {
-    fetchResources().then(
-      (data) => {
-        setResources(data.resources)
-      }
-    )
-  }, [])
+  const { resources } = useResources()
 
   return (
     <ul role="list" class="flex flex-col gap-4 p-0;">

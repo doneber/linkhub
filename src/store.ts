@@ -1,3 +1,7 @@
 import { atom } from "nanostores"
+import type { Filter } from "./interfaces/filter.interface"
 
-export const searchResults = atom({})
+export const filtersResources = atom<Filter>({
+	query: "",
+	tags: []
+})

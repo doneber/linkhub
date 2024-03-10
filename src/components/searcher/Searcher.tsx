@@ -1,27 +1,14 @@
 import { useFilters } from "@src/hooks/useFilters"
-import { fetchResources } from "@utils/utils.ts"
-import { useEffect, useRef, useState } from "preact/hooks"
-
-// TODO: Modularizar los recursos
-async function getResourcesInit() {
-	const data = await fetchResources()
-	return data.resources
-}
-
-const resources = await getResourcesInit()
+import { useEffect, useRef } from "preact/hooks"
 
 export const Searcher = () => {
-	const { setFilters, filterResources } = useFilters()
-	const [query, setQuery] = useState("")
+	const { setFilters } = useFilters()
 	const inputRef = useRef<HTMLInputElement>(null)
 
   const handleSearch = () => {
-		setQuery(inputRef.current!.value)
-		setFilters(prev => {
-			return {
-				...prev,
-				query
-			}
+	 	  setFilters({
+			query: inputRef.current!.value,
+			tags: []
 		})
   }
 
@@ -29,21 +16,11 @@ export const Searcher = () => {
 		const urlSearchParams = new URLSearchParams(window.location.search)
 		inputRef.current!.value = urlSearchParams.get("q") ?? ""
 
-		setQuery(inputRef.current!.value)
-		setFilters(prev => {
-			return {
-				...prev,
-				query
-			}
-		})
+		handleSearch()
 	}, [])
 
-	useEffect(() => {
-		filterResources(resources)
-	}, [query])
-
   return (
-    <form className="flex justify-center items-center gap-2" onSubmit={handleSearch}>
+    <form method="GET" action="/search" className="flex justify-center items-center gap-2" onSubmit={handleSearch}>
       <input ref={inputRef} required name="q" className="border rounded-lg border-solid bg-[#191919] border-[#333] w-full h-10 max-w-[520px] px-4 py-1" />
       <button type={"submit"} className="pt-2 pb-0 px-2 rounded-lg hover:bg-[#333]">
         <svg

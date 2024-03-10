@@ -1,21 +1,18 @@
-import { useState } from "preact/hooks"
-import type { Resource } from "@interfaces/resource.interface.ts"
-import { searchResults } from "@src/store.ts"
-import { Card } from "../card/Card.tsx"
+import { useFilters } from "@src/hooks/useFilters.tsx";
+import { useResources } from "@src/hooks/useResources.tsx";
+import { Card } from "../card/Card.tsx";
 
 export const SearchResults = () => {
-  const [resources, setResources] = useState<Resource[]>([])
-
-  searchResults.subscribe((result) => {
-    setResources(result as Resource[])
-  })
-
+	const { resources } = useResources()
+	const { filterResources } = useFilters()
+	const resourcesFiltered = filterResources(resources)
   return (
+
     <div>
-      <h4 className="font-bold my-5 text-xl">Resultados:</h4>
+      <h4 className="my-5 text-base">Resultados:</h4>
       <ul className="flex flex-col gap-4 p-0 my-4">
-        {resources.map &&
-          resources.map((resource) => (
+        {
+          resourcesFiltered.map((resource) => (
             <Card
               href={resource.url}
               title={resource.title}
