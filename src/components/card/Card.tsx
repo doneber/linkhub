@@ -8,20 +8,31 @@ interface Props {
 
 export const Card = ({ href, title, description, imageUrl, hashtags }: Props) => {
   return (
-    <li className="flex bg-[color:var(--background)] bg-none bg-[100%] transition-[background-position] duration-[0.6s] ease-[cubic-bezier(0.22,1,0.36,1)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] bg-[#191919] p-px rounded hover:bg-[#555] hover:bg-[0] focus:bg-[#555] focus:bg-[0]">
-      <a href={href} target="_blank" className="flex flex-col md:flex-row justify-between w-full no-underline leading-[1.4] opacity-80 rounded-lg;">
-        <div class="p-4">
-          <h2 className="text-xl transition-[color] duration-[0.6s] ease-[cubic-bezier(0.22,1,0.36,1)]">{title}</h2>
-          <p class="mt-2 text-[lightgray]">{description}</p>
-          <ul className="flex gap-2 flex-wrap mx-0 my-2 p-0;">
+    <li className="rounded border-[1px] border-[solid] border-neutral-700 hover:bg-neutral-800 hover:bg-[0]">
+      <a href={href} target="_blank" className="flex max-h-40 flex-col md:flex-row">
+        <div class="flex w-full flex-col p-4">
+          <h2 className="min-h-4 truncate text-base">{title}</h2>
+          <p class="mt-2 text-sm text-neutral-400"
+							style="
+								@apply overflow-hidden;
+								display: -webkit-box;
+								-webkit-box-orient: vertical;
+								-webkit-line-clamp: 2;
+								overflow: hidden;
+								text-overflow: ellipsis;
+							"
+					>{description}</p>
+          <ul className="mx-0 my-2 flex flex-wrap gap-1 p-0">
             {hashtags.map((hashtag) => (
-              <li className="shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] pb-1 px-2 rounded-lg">{hashtag}</li>
+              <li className="rounded-lg border-[1px] border-[solid] border-neutral-800 px-[6px] pb-[2px] pt-[1px] text-sm">{hashtag}</li>
             ))}
           </ul>
-          <p class="text-xl mt-2 ">{href}</p>
+          <p class="mt-auto truncate text-sm">{href}</p>
         </div>
         {/* TODO: is la imagen da error, no mostrar */}
-        {imageUrl && <img className="  max-md:mx-auto aspect-square" src={imageUrl}  width={250} height={250} alt={`Imagen de ${title}`}/>}
+        {imageUrl && (<div className="w-[32rem] hidden md:block">
+					<img loading="lazy" className="w-full h-full object-cover" src={imageUrl} alt={`Imagen de ${title}`}/>
+				</div>)}
       </a>
     </li>
   )
