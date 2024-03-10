@@ -1,18 +1,22 @@
+import { SearchIcon } from "./SearchIcon"
+
 export const SearcherQuery = () => {
   return (
-    <form action="/search" method="GET" className="flex justify-center items-center gap-2">
-      <input type="text" name="q" className="border rounded-lg border-solid border-[#333] bg-[#191919] w-full h-10 max-w-[520px] px-4 py-1" />
-      <button type={"submit"} className="pt-2 pb-0 px-2 rounded-lg hover:bg-[#333]">
-        <svg
-          width="30"
-          fill="#fff"
-          focusable="false"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-        </svg>
-      </button>
+    <form action="/search" method="GET" className="flex flex-col justify-center items-center gap-6">
+			<div className="flex border rounded-lg border-solid border-neutral-700 w-full max-w-[520px] pl-4 py-0">
+				<input required name="q" className="w-full bg-transparent focus:border-transparent focus:outline-none focus:ring-0" />
+				<button type={"submit"} className="flex justify-center items-center border-none p-0 pt-2 pb-1 px-2 rounded-lg">
+					<SearchIcon />
+				</button>
+			</div>
+			<div className="flex gap-4">
+				<button type={"submit"} className="text-lg border border-solid border-neutral-700 rounded px-8 py-2 bg-neutral-800 hover:bg-neutral-700">
+					Buscar
+				</button>
+				<a href="/all" type={"button"} className="text-lg border border-solid border-neutral-800 rounded px-5 py-2 bg-transparent hover:bg-neutral-800">
+					Ver todos
+				</a>
+			</div>
     </form>
   )
 }
