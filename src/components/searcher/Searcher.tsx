@@ -1,5 +1,5 @@
-import { searchResults } from "@src/store.ts"
-import { fetchResources, levenshteinDistance } from "@utils/utils.ts"
+import { useFilters } from "@src/hooks/useFilters"
+import { fetchResources } from "@utils/utils.ts"
 import { useEffect, useRef, useState } from "preact/hooks"
 
 // TODO: Modularizar los recursos
@@ -11,24 +11,35 @@ async function getResourcesInit() {
 const resources = await getResourcesInit()
 
 export const Searcher = () => {
+	const { setFilters, filterResources } = useFilters()
 	const [query, setQuery] = useState("")
 	const inputRef = useRef<HTMLInputElement>(null)
 
   const handleSearch = () => {
 		setQuery(inputRef.current!.value)
+		setFilters(prev => {
+			return {
+				...prev,
+				query
+			}
+		})
   }
 
 	useEffect(() => {
 		const urlSearchParams = new URLSearchParams(window.location.search)
 		inputRef.current!.value = urlSearchParams.get("q") ?? ""
+
 		setQuery(inputRef.current!.value)
+		setFilters(prev => {
+			return {
+				...prev,
+				query
+			}
+		})
 	}, [])
 
 	useEffect(() => {
-		const resourcesMatched = resources.filter((resource) => {
-      return levenshteinDistance(resource.title, query) <= 2
-    })
-    searchResults.set(resourcesMatched)
+		filterResources(resources)
 	}, [query])
 
   return (
