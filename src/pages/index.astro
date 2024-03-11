@@ -1,6 +1,7 @@
 ---
 import { SearcherQuery } from "@components/searcher/SearcherQuery"
 import Layout from "@layouts/Layout.astro"
+import { TagList } from "@src/components/Tag/TagList"
 ---
 
 <Layout title="LinkHub">
@@ -10,5 +11,8 @@ import Layout from "@layouts/Layout.astro"
 			Encuentra las mejores herramientas de desarrollo
 		</p>
 		<SearcherQuery client:load />
+		<div class="min-h-28">
+			<TagList client:load />
+		</div>
 	</section>
 </Layout>

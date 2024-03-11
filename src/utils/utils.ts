@@ -1,37 +1,7 @@
 import type { Resource } from "@interfaces/resource.interface"
 
-export function levenshteinDistance(a: string, b: string) {
-  const matriz = []
-
-  // Inicializar la matriz de costos
-  for (let i = 0; i <= a.length; i++) {
-    matriz[i] = [i]
-  }
-  for (let j = 0; j <= b.length; j++) {
-    matriz[0][j] = j
-  }
-
-  // Calcular la distancia
-  for (let i = 1; i <= a.length; i++) {
-    for (let j = 1; j <= b.length; j++) {
-      if (a[i - 1] === b[j - 1]) {
-        matriz[i][j] = matriz[i - 1][j - 1]
-      } else {
-        matriz[i][j] = Math.min(
-          matriz[i - 1][j] + 1, // borrado
-          matriz[i][j - 1] + 1, // inserción
-          matriz[i - 1][j - 1] + 1 // sustitución
-        )
-      }
-    }
-  }
-
-  return matriz[a.length][b.length]
-}
-
 // TODO: Separar las funciones para el cliente y para el build
 
-//
 export async function fetchResources(
   url = "/api/resources.json"
 ): Promise<{ resources: Resource[] }> {
@@ -74,4 +44,37 @@ export async function getResources(url: string) {
     .then((csvText) => {
       return parseCsvToObjects(csvText)
     })
+}
+
+// getHashtags
+// Define la interfaz para las filas del CSV.
+interface CsvRow {
+  url: string
+  hashtags: string[]
+}
+
+// Función para procesar el contenido del CSV y listar los hashtags.
+export async function listHashtagsFromCsv(csvFilePath: string): Promise<string[]> {
+  const response = await fetch(csvFilePath)
+  const text = await response.text()
+  const lines: string[] = text.split("\n").filter(line => line.trim() !== "")
+  const keys: string[] = lines[0].split(",").map(key => key.trim())
+
+  // Utiliza un Set para evitar hashtags duplicados.
+  const hashtagsSet = new Set<string>()
+
+  lines.slice(1).forEach((line: string) => {
+    const values: string[] = line.split(",").map(value => value.trim())
+    keys.forEach((key, index) => {
+      if (key === "hashtags" && values[index]) {
+        // Divide el valor por espacios y filtra los elementos que comiencen con '#'.
+        const hashtags: string[] = values[index].split(" ").filter(tag => tag.startsWith("#"))
+        // Agrega cada hashtag al Set.
+        hashtags.forEach(tag => hashtagsSet.add(tag))
+      }
+    })
+  })
+
+  // Convierte el Set a un array y lo devuelve.
+  return Array.from(hashtagsSet)
 }
