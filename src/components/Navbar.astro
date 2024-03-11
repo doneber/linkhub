@@ -1,15 +1,15 @@
 ---
-import ToggleTheme from './ToggleTheme';
-import Logo from './Logo.astro';
+import Logo from "./Logo.astro"
+import ToggleTheme from "./ToggleTheme"
 ---
 <nav class="container mx-auto flex justify-between p-4">
   <a href="/" class="flex gap-2 items-center justify-center hover:underline underline-offset-4">
 	<Logo class="w-5 mt-1" />
 		<span>LinkHub</span>
   </a>
-  <ToggleTheme client:only/>
   <div class="flex gap-3">
-    <a class="hover:underline underline-offset-4" href="/contribution">Colaboraciones</a>
+		<a class="hover:underline underline-offset-4" href="/contribution">Colaboraciones</a>
     <a class="hover:underline underline-offset-4" href="/all">Todos los Recursos</a>
+		<ToggleTheme client:only/>
   </div>
 </nav>
