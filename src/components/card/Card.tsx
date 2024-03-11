@@ -9,8 +9,8 @@ interface Props {
 export const Card = ({ href, title, description, imageUrl, hashtags }: Props) => {
   return (
     <li className="rounded border-[1px] border-[solid] border-neutral-700 hover:bg-neutral-800 hover:bg-[0]">
-      <a href={href} target="_blank" className="flex max-h-40 flex-col md:flex-row">
-        <div class="flex w-full flex-col p-4">
+      <a href={href} target="_blank" className="flex h-full flex-col md:flex-row">
+        <div class="flex w-full h-full flex-col p-4">
           <h2 className="min-h-4 truncate text-base">{title}</h2>
           <p class="mt-2 text-sm text-neutral-400"
 							style="
@@ -30,7 +30,7 @@ export const Card = ({ href, title, description, imageUrl, hashtags }: Props) =>
           <p class="mt-auto truncate text-sm">{href}</p>
         </div>
         {/* TODO: is la imagen da error, no mostrar */}
-        {imageUrl && (<div className="w-[32rem] hidden md:block">
+        {imageUrl && (<div className="w-[32rem] hidden md:block max-h-44">
 					<img loading="lazy" className="w-full h-full object-cover" src={imageUrl} alt={`Imagen de ${title}`}/>
 				</div>)}
       </a>

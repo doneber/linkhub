@@ -4,7 +4,7 @@ export const SearcherQuery = () => {
   return (
     <form action="/search" method="GET" className="flex flex-col justify-center items-center gap-6">
 			<div className="flex border rounded-lg border-solid border-neutral-700 w-full max-w-[520px] pl-4 py-0">
-				<input required name="q" className="w-full bg-transparent focus:border-transparent focus:outline-none focus:ring-0" />
+				<input required name="q" placeholder="Ej. svg" className="w-full bg-transparent focus:border-transparent focus:outline-none focus:ring-0" />
 				<button type={"submit"} className="flex justify-center items-center border-none p-0 pt-2 pb-1 px-2 rounded-lg">
 					<SearchIcon />
 				</button>

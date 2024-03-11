@@ -22,7 +22,7 @@ export const Searcher = () => {
 
   return (
     <form method="GET" action="/search" className="flex justify-center items-center gap-2" onSubmit={handleSearch}>
-      <input ref={inputRef} required name="q" className="h-10 w-full max-w-[520px] rounded-lg border border-solid border-[#333] bg-[#191919] px-4 py-1  focus:outline-none focus:ring-0" />
+      <input ref={inputRef} required placeholder="Ej. svg" name="q" className="h-10 w-full rounded-lg border border-solid border-neutral-700 bg-transparent px-4 py-1 focus:outline-none focus:ring-0" />
       <button type={"submit"} className="pt-2 pb-0 px-2 rounded-lg hover:bg-[#333]">
         <SearchIcon />
       </button>
