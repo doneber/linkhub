@@ -9,14 +9,15 @@ export const SearcherQuery = () => {
 					<SearchIcon />
 				</button>
 			</div>
-			<div className="flex gap-4">
-				<button type={"submit"} className="text-lg border border-solid border-neutral-700 rounded px-8 py-2 bg-neutral-800 hover:bg-neutral-700">
+			{/* TODO: Analizar un mejor diseño */}
+			{/* <div className="flex gap-4">
+				<button type={"submit"} className="text-lg border border-solid border-neutral-700 rounded px-8 py-2 hover:bg-neutral-700">
 					Buscar
 				</button>
-				<a href="/all" type={"button"} className="text-lg border border-solid border-neutral-800 rounded px-5 py-2 bg-transparent hover:bg-neutral-800">
+				<a href="/all" type={"button"} className="text-lg border border-solid border-neutral-700 rounded px-5 py-2 bg-transparent hover:bg-neutral-800">
 					Ver todos
 				</a>
-			</div>
+			</div> */}
     </form>
   )
 }
