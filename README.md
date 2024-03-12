@@ -12,8 +12,15 @@ Visita [LinkHub](https://linkhub.doneber.dev) para ver la aplicación en acción
 Este proyecto utiliza un stack moderno y eficiente para proporcionar una experiencia de usuario excepcional y un desarrollo ágil:
 
 - **[Astro.build](https://astro.build/)**: Un moderno generador de sitios estáticos que te permite construir interfaces de usuario rápidas y eficientes.
-- **[Preact](https://preactjs.com/)**: Una alternativa ligera a React con la misma API moderna, permitiendo un rendimiento superior y tamaños de paquete más pequeños.
+- **[Preact](https://preactjs.com/)**: Una alternativa ligera a [React](https://react.dev/) con la misma API moderna, permitiendo un rendimiento superior y tamaños de paquete más pequeños.
 - **[TypeScript](https://www.typescriptlang.org/)**: TypeScript para tener nuestro javascript fuertemente tipado sea mas fácil escalarlo y mantenerlo.
+- **[Tailwind](https://tailwindcss.com/)**: Un marco CSS de utilidad repleto de clases que se pueden componer para crear cualquier diseño, directamente en las etiquetas html.
+- **[Nanostores](https://www.npmjs.com/package/nanostores)**: Un ligero manejador de estados. Utiliza muchos almacenes atómicos y manipulación directa.
+
+**El diseño**
+
+La idea del proyecto esta plasmanda en [este enlace de figma](https://www.figma.com/file/6P3FdnMHq6i2D3l80Hmmqn/LinkHub?type=design&node-id=0%3A1&mode=design&t=ipB1Ltt0fh4gDoiA-1). Sin embargo no algo oficial, la verdadera fuente de inspiración del estilo es [Notion](https://notion.so/)
+
 
 ## 🏗️ Configuración del Proyecto
 
@@ -26,7 +33,7 @@ Asegúrate de tener instalado Node.js en tu sistema para poder trabajar con Astr
 Clona este repositorio en tu máquina local y navega al directorio del proyecto:
 
 ```bash
-git clone https://github.com/usuario/linkhub.git
+git clone https://github.com/doneber/linkhub
 cd linkhub
 ```
 
