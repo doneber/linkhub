@@ -1,0 +1,11 @@
+---
+import Layout from "@layouts/Layout.astro"
+import { ResourcesBookmarkContainer } from "@src/components/ResourcesBookmarkContainer"
+---
+
+<Layout title="Bookmarks - LinkHub">
+	<header class="flex justify-between items-center">
+		<p class="text-base my-5">Nuestros recursos favoritos:</p>
+	</header>
+  <ResourcesBookmarkContainer client:load />
+</Layout>
