@@ -8,7 +8,7 @@ interface Props {
 
 export const Card = ({ href, title, description, imageUrl, hashtags }: Props) => {
   return (
-    <li className="rounded border-[1px] border-[solid] border-neutral-700 hover:bg-neutral-800 hover:bg-[0] dark:hover:bg-neutral-200">
+    <li className="overflow-hidden rounded border-[1px] border-[solid] border-neutral-700 hover:bg-neutral-800 hover:bg-[0] dark:hover:bg-neutral-100 dark:border-neutral-200">
       <a href={href} target="_blank" className="flex h-full flex-col md:flex-row">
         <div class="flex w-full h-full flex-col p-4">
           <h2 className="min-h-4 truncate text-base">{title}</h2>
