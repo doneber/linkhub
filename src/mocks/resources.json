@@ -1,0 +1,188 @@
+{
+	"resources": [
+		{
+			"url": "https://squoosh.app/",
+			"hashtags": [
+				"#images",
+				"#optimization"
+			],
+			"title": "Squoosh",
+			"description": "Squoosh is the ultimate image optimizer that allows you to compress and compare images with different codecs in your browser.",
+			"imageUrl": "https://squoosh.app/c/icon-large-maskable-c2078ced.png"
+		},
+		{
+			"url": "https://vimium.github.io/",
+			"hashtags": [
+				"#productivity"
+			],
+			"title": "Vimium",
+			"description": ""
+		},
+		{
+			"url": "https://tinypng.com/",
+			"hashtags": [
+				"#optimization"
+			],
+			"title": "TinyPNG",
+			"description": "Free online image compressor for faster websites! Reduce the file size of your WEBP, JPEG, and PNG images with TinyPNG’s smart lossy compression engine."
+		},
+		{
+			"url": "https://darkreader.org/",
+			"hashtags": [
+				"#extension",
+				"#browser"
+			],
+			"title": "Dark Reader",
+			"description": "Dark mode on all websites. Care your eyes, use Dark Reader for night and daily browsing. For Chrome and Firefox, Edge and Safari.",
+			"imageUrl": "https://darkreader.org/images/darkreader-screenshot-v5-preview.png"
+		},
+		{
+			"url": "https://svgomg.net/",
+			"hashtags": [
+				"#svg"
+			],
+			"title": "SVGOMG",
+			"description": "Optimize and minify SVG images",
+			"imageUrl": "https://jakearchibald.github.io/svgomg/imgs/icon.png"
+		},
+		{
+			"url": "https://www.svgrepo.com/",
+			"hashtags": [
+				"#svg"
+			],
+			"title": "SVG Repo",
+			"description": "Free Vectors and Icons in SVG format. ✅ Download free mono or multi color vectors for commercial use. Search in 500.000+ Free SVG Vectors and Icons.",
+			"imageUrl": "https://www.svgrepo.com/social.png"
+		},
+		{
+			"url": "https://coolors.co/",
+			"hashtags": [
+				"#colors"
+			],
+			"title": "Coolors",
+			"description": "Generate or browse beautiful color combinations for your designs.",
+			"imageUrl": "https://coolors.co/assets/img/og_image.png"
+		},
+		{
+			"url": "https://exercism.org/",
+			"hashtags": [
+				"#programming",
+				"#exercises"
+			],
+			"title": "Exercism",
+			"description": "Learn, practice and get world-class mentoring in over 50 languages. 100% free.",
+			"imageUrl": "https://assets.exercism.org/meta/og.png"
+		},
+		{
+			"url": "https://www.hackerrank.com/",
+			"hashtags": [
+				"#programming",
+				"#exercises"
+			],
+			"title": "HackerRank",
+			"description": "HackerRank is the market-leading coding test and interview solution for hiring developers. Start hiring at the pace of innovation!",
+			"imageUrl": "https://www.hackerrank.com/wp-content/uploads/2022/10/Homepage-Social-Share-1024x468.png"
+		},
+		{
+			"url": "https://codi.link/",
+			"hashtags": [
+				"#code",
+				"#editor"
+			],
+			"title": "codi.link | HTML, CSS, JavaScript Live Editor Playground",
+			"description": "codi.link is a live editor for HTML, CSS and JS. Edit your code in real-time, and see the result instantly"
+		},
+		{
+			"url": "https://excalidraw.com",
+			"hashtags": [
+				"#draw",
+				"#whiteboard"
+			],
+			"title": "Excalidraw | Hand-drawn look & feel • Collaborative • Secure",
+			"description": "Excalidraw is a virtual collaborative whiteboard tool that lets you easily sketch diagrams that have a hand-drawn feel to them.",
+			"imageUrl": "https://excalidraw.com/og-image-2.png"
+		},
+		{
+			"url": "https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens",
+			"hashtags": [],
+			"title": "Error Lens",
+			"description": "Extension for Visual Studio Code - Improve highlighting of errors, warnings and other language diagnostics.",
+			"imageUrl": "https://usernamehw.gallerycdn.vsassets.io/extensions/usernamehw/errorlens/3.16.0/1702717792759/Microsoft.VisualStudio.Services.Icons.Default"
+		},
+		{
+			"url": "https://tailwindcomponents.com/cheatsheet/",
+			"hashtags": [
+				"#tailwind",
+				"#components"
+			],
+			"title": "Tailwind CSS Cheat Sheet",
+			"description": "Find quickly all the class names and CSS properties with this interactive cheat sheet. The only Tailwind CheatSheet you will ever need!"
+		},
+		{
+			"url": "https://www.tailwindshades.com/",
+			"hashtags": [
+				"#tailwind",
+				"#shades"
+			],
+			"title": "",
+			"description": "A tool to help generate color shades for Tailwind CSS.",
+			"imageUrl": "https://www.tailwindshades.com/share.png"
+		},
+		{
+			"url": "https://uicolors.app/create",
+			"hashtags": [
+				"#tailwind",
+				"#ui-colors"
+			],
+			"title": "",
+			"description": "Generate, edit, save and share Tailwind CSS color shades based on a given hexcode or HSL color.",
+			"imageUrl": "https://uicolors.app/og_image.png"
+		},
+		{
+			"url": "https://shots.so/",
+			"hashtags": [
+				"#mockups-for-readmes",
+				"#screenshots"
+			],
+			"title": "Shots",
+			"description": "Create Amazing Mockups",
+			"imageUrl": "https://shots.so/image/og-new.jpg?v=2"
+		},
+		{
+			"url": "https://iconos8.es/upscaler",
+			"hashtags": [
+				"#images-up-scaler"
+			],
+			"title": "AI Image Upscaler: Upscale Images & Photos Online",
+			"description": "Software de escalado inteligente online gratuito para mejorar calidad de fotos e imágenes (JPG, PNG). Aumentar calidad de imagen automáticamente usando IA."
+		},
+		{
+			"url": "https://umami.is/",
+			"hashtags": [
+				"#web-analyzer",
+				"#statistics"
+			],
+			"title": "Umami",
+			"description": ""
+		},
+		{
+			"url": "https://heroicons.com/",
+			"hashtags": [
+				"#icons",
+				"#svg-icons"
+			],
+			"title": "Heroicons",
+			"description": "Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS.",
+			"imageUrl": "https://heroicons.com/_next/static/media/social-card.fefc68e0.jpg"
+		},
+		{
+			"url": "https://fontsource.org/",
+			"hashtags": [
+				"#fonts"
+			],
+			"title": "Fontsource",
+			"description": "Download and self-host Open Source fonts in neatly bundled NPM packages.",
+			"imageUrl": "/og-image.png"
+		}
+	]
+}
