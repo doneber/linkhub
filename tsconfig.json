@@ -20,6 +20,15 @@
 		"@utils/*": [
 			"src/utils/*"
 		],
+		"@mocks/*": [
+			"src/mocks/*"
+		],
+		"@data/*": [
+			"src/data/*"
+		],
+		"@hooks/*": [
+			"src/hooks/*"
+		],
 	}
   }
 }
