@@ -78,3 +78,16 @@ export async function listHashtagsFromCsv(csvFilePath: string): Promise<string[]
   // Convierte el Set a un array y lo devuelve.
   return Array.from(hashtagsSet)
 }
+
+export function getTittleFromUrl(url: string) {
+  // Eliminar protocolo y subdominios
+  let title = url.replace(/(^\w+:|^)\/\/(www\.)?/, "")
+
+  // Eliminar ruta y parámetros de consulta
+  title = title.replace(/\/.*$/, "")
+
+  // Eliminar extensión si la URL termina con ella
+  title = title.replace(/\.\w+$/, "")
+
+  return title
+}
