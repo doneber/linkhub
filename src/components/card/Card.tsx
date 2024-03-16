@@ -43,9 +43,9 @@ export const Card = ({ href, title, description, imageUrl, hashtags }: Props) =>
             ))}
           </ul>
           <p class="mt-auto truncate text-sm">{href}</p>
-					<button className="mt-2 w-fit" onClick={handleBookmark}>
+					<button className={`mt-2 w-fit ${!isMarked && "cursor-cell"}`} onClick={handleBookmark}>
 						<svg
-							className={`hover:fill-neutral-200 ${isMarked ? "fill-neutral-200 dark:fill-neutral-950" : ""}`}
+							className={`${isMarked && "fill-neutral-200 dark:fill-neutral-950"} hover:fill-transparent`}
 							width="1.2em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 6.2c0-1.12 0-1.68.218-2.108a2 2 0 0 1 .874-.874C6.52 3 7.08 3 8.2 3h7.6c1.12 0 1.68 0 2.108.218a2 2 0 0 1 .874.874C19 4.52 19 5.08 19 6.2V21l-7-5-7 5V6.2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
 						</svg>
 					</button>

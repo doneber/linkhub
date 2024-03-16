@@ -8,15 +8,15 @@ import ToggleTheme from "./ToggleTheme"
 		<span>LinkHub</span>
   </a>
   <div class="flex gap-3">
-		<a href="/bookmarks" class="flex gap-1" title="Recursos guardados">
+		<a href="/bookmarks" class="flex gap-1 hover:underline underline-offset-4" title="Recursos guardados">
 			<svg
 				width="1.2em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 6.2c0-1.12 0-1.68.218-2.108a2 2 0 0 1 .874-.874C6.52 3 7.08 3 8.2 3h7.6c1.12 0 1.68 0 2.108.218a2 2 0 0 1 .874.874C19 4.52 19 5.08 19 6.2V21l-7-5-7 5V6.2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
 			</svg>
-			<span class="hover:underline underline-offset-4 hidden sm:inline-block">Bookmarks</span>
+			<span class="hidden sm:inline-block">Bookmarks</span>
 		</a>
-		<a href="/all" class="flex gap-1" title="Todos los recursos">
+		<a href="/all" class="flex gap-1 hover:underline underline-offset-4" title="Todos los recursos">
 			<svg width="1.2em" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor" stroke-width=".829" color="currentColor"><path d="M8.04 10.471 2.938 7.953l2.085-1.03-.932-.46-3.017 1.49L8.04 11.39l6.965-3.437-3.017-1.49-.93.46 2.084 1.03z" style="-inkscape-stroke:none" transform="matrix(1.1485 0 0 1.2471 -1.233 -1.917)"/><path d="M8.04 13.448 2.938 10.93 5.023 9.9l-.932-.46-3.017 1.49 6.966 3.437 6.965-3.437-3.017-1.49-.93.46 2.084 1.03zM8.04 1.537 1.074 4.974 8.04 8.41l6.965-3.437zm0 .919 5.102 2.518L8.04 7.492 2.938 4.974z" style="-inkscape-stroke:none" transform="matrix(1.1485 0 0 1.2471 -1.233 -1.917)"/></g></svg>
-			<span class="hover:underline underline-offset-4 hidden sm:inline-block">Recursos</span>
+			<span class="hidden sm:inline-block">Recursos</span>
 		</a>
 		<ToggleTheme client:only/>
   </div>
