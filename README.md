@@ -3,6 +3,10 @@
 
 LinkHub es una aplicación web de código abierto diseñada para permitir a los usuarios guardar, organizar y descubrir recursos web de manera eficiente. Inspirado en la necesidad de tener un lugar centralizado donde las personas puedan acceder a enlaces útiles recomendados por una comunidad, LinkHub busca simplificar la forma en que interactuamos con la información en línea.
 
+<div align="center" style="max-width: 800px; height: 220px; margin: 0 auto; overflow: hidden;">
+  <img src="./public/images/linkhub.jpg" alt="Banner de LinkHub" style="width: 100%; height: auto; object-fit: cover; object-position: 0 45%;">
+</div>
+
 ## 🚀 Despliegue
 
 Visita [LinkHub](https://linkhub.doneber.dev) para ver la aplicación en acción.
