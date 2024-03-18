@@ -11,7 +11,7 @@ export const SearchResults = () => {
 
     <div>
       <h4 className="my-5 text-base">Resultados:</h4>
-      <ul className="flex flex-col gap-4 p-0 my-4">
+		  <ul className="grid grid-cols-1  gap-y-10 gap-x-6 items-start">
         {
           resourcesFiltered.length === 0 ? <p>No se encontraron coincidencias</p> : resourcesFiltered.map((resource) => (
             <Card
