@@ -1,15 +1,17 @@
-import fs from "node:fs/promises"
-import path from "node:path"
-import process from "node:process"
-import { getTittleFromUrl, parseCsvToObjects } from "@src/utils/utils"
+import { getResources, getTittleFromUrl } from "@src/utils/utils"
 import type { APIRoute } from "astro"
 import cheerio from "cheerio"
 import Fuse from "fuse.js"
 
-const filePath = path.resolve(process.cwd(), "public", "resources.csv")
+// const filePath = path.resolve(process.cwd(), "public", "resources.csv")
 
-const csvText = await fs.readFile(filePath, "utf-8")
-const resources = parseCsvToObjects(csvText)
+// const csvText = await fs.readFile(filePath, "utf-8")
+// const resources = parseCsvToObjects(csvText)
+
+const CSV_URL = "https://raw.githubusercontent.com/doneber/linkhub/main/public/resources.csv"
+
+const resources = await getResources(CSV_URL)
+
 const getMetadata = async (url: string) => {
 	try {
 		const response = await fetch(url)
