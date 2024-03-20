@@ -1,16 +1,14 @@
-import { useFilters } from "@src/hooks/useFilters"
+import { resources } from "@src/store"
 import { useEffect, useRef } from "preact/hooks"
 import { SearchIcon } from "./SearchIcon"
 
 export const Searcher = () => {
-	const { setFilters } = useFilters()
 	const inputRef = useRef<HTMLInputElement>(null)
 
-  const handleSearch = () => {
-	 	  setFilters({
-			query: inputRef.current!.value,
-			tags: []
-		})
+  const handleSearch = async () => {
+		const response = await fetch(`/api/resources.json?q=${encodeURIComponent(inputRef.current?.value ?? "")}`)
+		const data = await response.json()
+		resources.set(data.resources)
   }
 
 	useEffect(() => {

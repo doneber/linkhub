@@ -15,7 +15,7 @@ interface CsvRow {
   hashtags: string[]
 }
 
-function parseCsvToObjects(csvText: string) {
+export function parseCsvToObjects(csvText: string) {
   const lines: string[] = csvText.split("\n").filter((line) => line.trim() !== "")
   const keys: string[] = lines[0].split(",").map((key) => key.trim())
   const objectsArray: CsvRow[] = lines.slice(1).map((line: string) => {
