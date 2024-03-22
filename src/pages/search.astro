@@ -6,5 +6,5 @@ import Layout from "@layouts/Layout.astro"
 
 <Layout title="Buscador - LinkHub">
   <Searcher client:load transition:name="searcher" transition:persist />
-  <SearchResults client:load />
+  <SearchResults client:load transition:persist />
 </Layout>

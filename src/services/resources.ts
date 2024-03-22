@@ -6,7 +6,7 @@ export const fetchResources = async ({
 	offset = 0,
 	query = ""
 }) => {
-	const response = await fetch(`/api/resources.json?q=${query}&limit=${limit}&offset=${offset}`)
+	const response = await fetch(`/api/resources.json?q=${encodeURIComponent(query)}&limit=${limit}&offset=${offset}`)
 	const data: ResponseFormat<Resource[]> = await response.json()
 	return data.data
 }

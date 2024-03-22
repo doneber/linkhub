@@ -1,27 +1,47 @@
+import { useStore } from "@nanostores/preact"
 import type { Resource } from "@src/interfaces/resource.interface.ts"
-import { resources } from "@src/store.ts"
-import { useState } from "preact/hooks"
+import { fetchResources } from "@src/services/resources.ts"
+import { filtersResources } from "@src/store.ts"
+import { useEffect, useState } from "preact/hooks"
 import { ResourcesList } from "../ResourcesList.tsx"
 
 export const SearchResults = () => {
-	const [results, setResults] = useState<Resource[]>([])
+	const [resources, setResources] = useState<Resource[]>([])
 	const [isLoading, setIsloading] = useState(false)
+	const [offset, setOffset] = useState(0)
+	const limit = 5
 
-	setResults(resources.get())
+	const filters = useStore(filtersResources)
 
-	resources.subscribe((data: any) => {
-		setResults(data)
-	})
+	useEffect(() => {
+		setIsloading(true)
+		fetchResources({ query: filters.query, limit, offset })
+			.then(data => {
+				setResources(data)
+			})
+			.finally(() => {
+				setIsloading(false)
+			})
+	}, [filters])
 
 	const handleNextPagination = () => {
-
+		setOffset((prevOffset) => {
+			setIsloading(true)
+			const newOffset = prevOffset + limit
+			fetchResources({ query: filters.query, limit, offset: newOffset }).then(data => {
+				setResources(prev => prev.concat(data))
+			}).finally(() => {
+				setIsloading(false)
+			})
+			return newOffset
+		})
 	}
 
 	return (
 
 		<div>
 			<h4 className="my-5 text-base">Resultados:</h4>
-			<ResourcesList resources={results} isLoading={isLoading} handleNextPagination={handleNextPagination} />
+			<ResourcesList resources={resources} isLoading={isLoading} handleNextPagination={handleNextPagination} />
 		</div>
 	)
 }

@@ -1,21 +1,26 @@
-import { fetchResources } from "@src/services/resources"
-import { resources } from "@src/store"
+import { filtersResources } from "@src/store"
 import { useEffect, useRef } from "preact/hooks"
 import { SearchIcon } from "./SearchIcon"
 
 export const Searcher = () => {
 	const inputRef = useRef<HTMLInputElement>(null)
 
-	const handleSearch = async () => {
-		const data = await fetchResources({ query: encodeURIComponent(inputRef.current?.value ?? "") })
-		resources.set(data)
+	const handleSearch = async (event: SubmitEvent) => {
+		event.preventDefault()
+		filtersResources.set({
+			query: inputRef.current?.value ?? "",
+			tags: []
+		})
 	}
 
 	useEffect(() => {
 		const urlSearchParams = new URLSearchParams(window.location.search)
 		inputRef.current!.value = urlSearchParams.get("q") ?? ""
 
-		handleSearch()
+		filtersResources.set({
+			query: inputRef.current?.value ?? "",
+			tags: []
+		})
 	}, [])
 
 	return (
