@@ -1,5 +1,4 @@
-import type { ResponseFormat } from "@src/interfaces/ReponseFormat.interface"
-import type { Resource } from "@src/interfaces/resource.interface"
+import { fetchResources } from "@src/services/resources"
 import { resources } from "@src/store"
 import { useEffect, useRef } from "preact/hooks"
 import { SearchIcon } from "./SearchIcon"
@@ -8,9 +7,8 @@ export const Searcher = () => {
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	const handleSearch = async () => {
-		const response = await fetch(`/api/resources.json?q=${encodeURIComponent(inputRef.current?.value ?? "")}`)
-		const data: ResponseFormat<Resource[]> = await response.json()
-		resources.set(data.data)
+		const data = await fetchResources({ query: encodeURIComponent(inputRef.current?.value ?? "") })
+		resources.set(data)
 	}
 
 	useEffect(() => {
