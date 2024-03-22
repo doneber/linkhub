@@ -1,3 +1,5 @@
+import type { ResponseFormat } from "@src/interfaces/ReponseFormat.interface"
+import type { Resource } from "@src/interfaces/resource.interface"
 import { getFullResourcesData } from "@src/utils/utils"
 import type { APIRoute } from "astro"
 import Fuse from "fuse.js"
@@ -25,22 +27,33 @@ const fuseOptions = {
 		"hashtags"
 	]
 }
-const fuse = new Fuse(fullResourcesData, fuseOptions)
 
 export const GET: APIRoute = async ({ request }) => {
 	const { url } = request
 	const searchParams = new URL(url).searchParams
 	const query = searchParams.get("q")
+	const limit = Number(searchParams.get("limit")) || 10
+	const offset = Number(searchParams.get("offset")) || 0
+
+	let data: Resource[] = structuredClone(fullResourcesData)
+	const total = data.length
 
 	if (query) {
-		return new Response(JSON.stringify({
-				resources: fuse.search(query).map(item => item.item)
-			})
-		)
+			const fuse = new Fuse(data, fuseOptions)
+			data = fuse.search(query).map(item => item.item)
 	}
 
-  return new Response(JSON.stringify({
-      resources: fullResourcesData
-    })
+	data = data.slice(offset, offset + limit)
+
+	const res: ResponseFormat<Resource[]> = {
+		data,
+		info: {
+			limit,
+			offset,
+			total
+		}
+	}
+
+  return new Response(JSON.stringify(res)
   )
 }

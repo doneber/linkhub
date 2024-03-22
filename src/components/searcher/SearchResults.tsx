@@ -12,22 +12,22 @@ export const SearchResults = () => {
 		setResults(data)
 	})
 
-  return (
+	return (
 
-    <div>
-      <h4 className="my-5 text-base">Resultados:</h4>
-		  <ul className="grid grid-cols-1  gap-y-10 gap-x-6 items-start">
-        {
-          results.length === 0 ? <p>No se encontraron coincidencias</p> : results.map((resource) => (
-            <Card
-              href={resource.url}
-              title={resource.title}
-              description={resource.description}
-              imageUrl={resource.imageUrl}
-              hashtags={resource.hashtags}
-            />
-          ))}
-      </ul>
-    </div>
-  )
+		<div>
+			<h4 className="my-5 text-base">Resultados:</h4>
+			<ul className="grid grid-cols-1  gap-y-10 gap-x-6 items-start">
+				{
+					results.length === 0 ? <p>No se encontraron coincidencias</p> : results.map((resource) => (
+						<Card
+							href={resource.url}
+							title={resource.title}
+							description={resource.description ?? ""}
+							imageUrl={resource.imageUrl}
+							hashtags={resource.hashtags}
+						/>
+					))}
+			</ul>
+		</div>
+	)
 }
