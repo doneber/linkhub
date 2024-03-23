@@ -1,50 +1,10 @@
-import { getResources, getTittleFromUrl } from "@src/utils/utils"
+import type { ResponseFormat } from "@src/interfaces/ReponseFormat.interface"
+import type { Resource } from "@src/interfaces/resource.interface"
+import { getFullResourcesData } from "@src/utils/utils"
 import type { APIRoute } from "astro"
-import cheerio from "cheerio"
 import Fuse from "fuse.js"
 
-// const filePath = path.resolve(process.cwd(), "public", "resources.csv")
-
-// const csvText = await fs.readFile(filePath, "utf-8")
-// const resources = parseCsvToObjects(csvText)
-
-const CSV_URL = "https://raw.githubusercontent.com/doneber/linkhub/main/public/resources.csv"
-
-const resources = await getResources(CSV_URL)
-
-const getMetadata = async (url: string) => {
-	try {
-		const response = await fetch(url)
-		if (!response.ok) {
-			throw new Error(`Error en la solicitud HTTP: ${response.status}`)
-		}
-		const html = await response.text()
-		const $ = cheerio.load(html)
-		const imageUrl = $("meta[property=\"og:image\"]").attr("content") ?? undefined
-		const fullTitle = $("title").text() || $("meta[property=\"og:title\"]").attr("content") || getTittleFromUrl(url)
-		const titleParts = fullTitle.split(/ – | - | \| | — |: | : | · /) // Usa una expresión regular para cubrir ambos separadores
-		const title = titleParts[0] ?? "" // Toma solo la primera parte, asumiendo que es el "verdadero" título
-
-		let description = $("meta[property=\"og:description\"]").attr("content")
-		if (!description) {
-			description = $("meta[name=\"description\"]").attr("content") ?? ""
-		}
-
-		return { title, description, imageUrl }
-	} catch (error) {
-		return { title: getTittleFromUrl(url) }
-	}
-}
-
-const fullResourcesData = await Promise.all(
-	resources.map(async (resource) => {
-		const metadata = await getMetadata(resource.url)
-		return {
-			...resource,
-			...metadata,
-		}
-	})
-)
+const fullResourcesData = await getFullResourcesData()
 
 // TODO: Probar la mejor configuracion
 const fuseOptions = {
@@ -67,22 +27,33 @@ const fuseOptions = {
 		"hashtags"
 	]
 }
-const fuse = new Fuse(fullResourcesData, fuseOptions)
 
 export const GET: APIRoute = async ({ request }) => {
 	const { url } = request
 	const searchParams = new URL(url).searchParams
 	const query = searchParams.get("q")
+	const limit = Number(searchParams.get("limit")) || 10
+	const offset = Number(searchParams.get("offset")) || 0
+
+	let data: Resource[] = structuredClone(fullResourcesData)
+	const total = data.length
 
 	if (query) {
-		return new Response(JSON.stringify({
-				resources: fuse.search(query).map(item => item.item)
-			})
-		)
+			const fuse = new Fuse(data, fuseOptions)
+			data = fuse.search(query).map(item => item.item)
 	}
 
-  return new Response(JSON.stringify({
-      resources: fullResourcesData
-    })
+	data = data.slice(offset, offset + limit)
+
+	const res: ResponseFormat<Resource[]> = {
+		data,
+		info: {
+			limit,
+			offset,
+			total
+		}
+	}
+
+  return new Response(JSON.stringify(res)
   )
 }

@@ -1,30 +1,37 @@
-import { useEffect, useState } from "preact/hooks"
 import type { Resource } from "@src/interfaces/resource.interface"
-import { Card } from "./card/Card"
+import { fetchResources } from "@src/services/resources"
+import { useEffect, useState } from "preact/hooks"
+import { ResourcesList } from "./ResourcesList"
 
 export const ResourcesContainer = () => {
-  const [resources, setResources] = useState<Resource[]>([])
+	const [isLoading, setIsloading] = useState(false)
+	const [resources, setResources] = useState<Resource[]>([])
+	const [offset, setOffset] = useState(0)
+	const limit = 10
+
+	const handleNextPagination = () => {
+		setOffset((prevOffset) => {
+			setIsloading(true)
+			const newOffset = prevOffset + limit
+			fetchResources({ limit, offset: newOffset }).then(data => {
+				setResources(prev => prev.concat(data))
+			}).finally(() => {
+				setIsloading(false)
+			})
+			return newOffset
+		})
+	}
 
 	useEffect(() => {
-		 function callResources() {
-			fetch("/api/resources.json").then(data => data.json())
-			.then(json => setResources(json.resources))
-		}
-		callResources()
+		setIsloading(true)
+		fetchResources({ limit, offset }).then(data => {
+			setResources(prev => prev.concat(data))
+		}).finally(() => {
+			setIsloading(false)
+		})
 	}, [])
 
-  return (
-    <ul role="list" class="grid grid-cols-1 gap-3 ">
-      {resources.map((resource) => (
-        <Card
-          href={resource.url}
-          title={resource.title}
-          description={resource.description}
-          imageUrl={resource.imageUrl}
-          hashtags={resource.hashtags}
-		  
-        />
-      ))}
-    </ul>
-  )
+	return (
+		<ResourcesList resources={resources} isLoading={isLoading} handleNextPagination={handleNextPagination} />
+	)
 }
