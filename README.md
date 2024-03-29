@@ -88,3 +88,38 @@ Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE.md
 <a href="https://github.com/doneber/linkhub/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=doneber/linkhub" />
 </a>
+
+## 🔑 Como obtener tu Github Client ID y Secret
+
+Before being able to initialize the application, you will need to obtain your ***client ID*** and ***client secret*** from Twitch.
+
+Primero, Tienes que ir [github.com/settings/developers](https://github.com/settings/developers)
+
+Luego de que este ahi tienes que darle click donde dice **'New OAuth App'** en la esquina derecha.
+
+![Consola de Github](https://github.com/doneber/linkhub/assets/114698709/57b1e23d-5d5f-4910-9d61-ad4421938fab)
+
+
+Entonces necesitaras registrar tu app. Llena los campos como el siguiente ejemplo y dale click al boton **'Register application'**.
+
+![Registro de Aplicacion Oauth](https://github.com/doneber/linkhub/assets/114698709/fcdbbba2-e6b9-48a0-acb9-3f9b3212176d)
+
+
+Despues de eso, la pagina te redirigira al panel de administracion. Donde estara tu ***client ID*** como se muestra a continuacion:
+
+
+![Panel Administrador](https://github.com/doneber/linkhub/assets/114698709/15bd5c0b-9cc1-4bc1-96aa-76b036357dad)
+
+
+
+Finnalmente, necesitaras tu ***client secret***. Debajo del lugar donde esta tu ***client ID***, encontraras el boton **'new secret'**; dale click para obtener tu secreto.
+
+Finally, you'll need your ***client secret***. Below the place where you obtained your ***client ID***, you'll find the **'generate a new secret'** button; click on it to get your secret.
+
+
+![Generacion de Secret](https://github.com/doneber/linkhub/assets/114698709/064420c0-8d46-4f51-a1b1-576f3fd8cfe9)
+
+
+
+No olvides agregarlo a tu archivo `.env` guiandote del archivo `.env.example`
+
