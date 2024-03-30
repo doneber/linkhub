@@ -3,8 +3,12 @@ import Logo from "./Logo.astro"
 import ToggleTheme from "./ToggleTheme"
 
 import { getSession } from 'auth-astro/server';
+import { SignOut, Auth, SignIn } from 'auth-astro/components'
 
-const session = await getSession(Astro.request);
+const session = await getSession(Astro.request)!
+const username = session?.user?.name
+const userimage = session?.user?.image
+
 ---
 <nav class="container mx-auto flex justify-between p-4">
   <a href="/" class="flex gap-2 items-center justify-center hover:underline underline-offset-4">
@@ -27,26 +31,25 @@ const session = await getSession(Astro.request);
 				<span class="hidden sm:inline-block">Explorar</span>
 		</a>
 		<div>
-			<!-- <span>{session?.user?.name}</span> -->
-			<button id="login" class=`${session ? "hidden" : ""} flex flex-row items-center gap-1 hover:underline underline-offset-4` title="Login">
-				<svg width="1.35em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 12h8M16 15l-2.913-2.913v0a.123.123 0 0 1 0-.174v0L16 9"/><path d="M16 5v-.5 0A1.5 1.5 0 0 0 14.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9.5a1.5 1.5 0 0 0 1.5-1.5v0-.5"/></g></svg>
-				<span class="hidden sm:inline-block">Login</span>
-			</button>
-			<button id="logout" class=`${session ? "" : "hidden"} flex flex-row items-center gap-1 hover:underline underline-offset-4` title="Login">
-				<svg style="scale: -1;" width="1.35em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 12h8M16 15l-2.913-2.913v0a.123.123 0 0 1 0-.174v0L16 9"/><path d="M16 5v-.5 0A1.5 1.5 0 0 0 14.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9.5a1.5 1.5 0 0 0 1.5-1.5v0-.5"/></g></svg>
-				<span class="hidden sm:inline-block">Logout</span>
-			</button>
+			<Auth>
+				{
+					session ? (
+						<div class="flex items-center gap-1">
+							<img src={userimage} alt="user" class="w-6 h-6 rounded-full" />
+							<span class="hidden sm:inline-block">{username}</span>
+							<SignOut class="flex flex-row items-center gap-1 hover:underline underline-offset-4" title="Logout">
+							 <svg style="scale: -1;" width="1.35em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 12h8M16 15l-2.913-2.913v0a.123.123 0 0 1 0-.174v0L16 9"/><path d="M16 5v-.5 0A1.5 1.5 0 0 0 14.5 3H5a2 2 0
+							0 0-2 2v14a2 2 0 0 0 2 2h9.5a1.5 1.5 0 0 0 1.5-1.5v0-.5"/></g></svg>
+							<span class="hidden sm:inline-block">Logout</span>
+							</SignOut>
+						</div>
+					) : <SignIn provider="github" class="flex flex-row items-center gap-1 hover:underline underline-offset-4" title="Login">
+						<svg width="1.35em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 12h8M16 15l-2.913-2.913v0a.123.123 0 0 1 0-.174v0L16 9"/><path d="M16 5v-.5 0A1.5 1.5 0 0 0 14.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9.5a1.5 1.5 0 0 0 1.5-1.5v0-.5"/></g></svg>
+						<span class="hidden sm:inline-block">Login</span>
+				</SignIn>
+				}	
+			</Auth>
 		</div>
 		<ToggleTheme client:only/>
   </div>
 </nav>
-
-<script>
-	const { signIn, signOut } = await import("auth-astro/client")
-	const $login: HTMLButtonElement = document.querySelector("#login")!
-	$login.onclick = () => signIn("github")
-	const $logout: HTMLButtonElement = document.querySelector("#logout")!
-	$logout.onclick = () => {
-		console.log('saliendo');
-		signOut()}
-</script>
