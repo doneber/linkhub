@@ -1,0 +1,60 @@
+---
+
+import { getSession } from 'auth-astro/server';
+import { SignOut, Auth, SignIn } from 'auth-astro/components'
+
+const session = await getSession(Astro.request)!
+const name = session?.user?.name
+const userimage = session?.user?.image
+
+---
+
+<Auth>
+  {
+    session ? (
+      <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
+        <button type="button" class="flex items-center gap-1 text-sm rounded-full md:me-0" id="user-menu-button" user-menu-button aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+          <img class="w-7 h-7 rounded-full border-[.5px] border-neutral-600/25 " src={userimage} alt="user photo" />
+          <svg width=".7rem" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve"><path style="fill-rule:evenodd;clip-rule:evenodd" d="M3 6h18l-9 13z"/></svg>
+        </button>
+        <div class="absolute top-[1.5rem] right-[-1rem] z-50 hidden my-4 text-base list-none bg-neutral-900 divide-y divide-neutral-200 rounded-lg overflow-hidden shadow dark:bg-neutral-100 dark:divide-neutral-300 border-[1px] border-neutral-600 dark:border-neutral-300" id="user-dropdown">
+          <div class="px-4 py-3">
+            <span>{name}</span>
+          </div>
+          <ul aria-labelledby="user-menu-button">
+            <li class="hover:bg-neutral-800 dark:hover:bg-neutral-200">
+              <SignOut class="flex justify-between text-start text-sm min-w-36 py-2 px-4" title="Logout">
+                Cerran Sesión
+                <svg style="scale: -1;" width="1.35em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 12h8M16 15l-2.913-2.913v0a.123.123 0 0 1 0-.174v0L16 9"/><path d="M16 5v-.5 0A1.5 1.5 0 0 0 14.5 3H5a2 2 0
+                  0 0-2 2v14a2 2 0 0 0 2 2h9.5a1.5 1.5 0 0 0 1.5-1.5v0-.5"/></g></svg>
+              </SignOut>
+            </li>
+          </ul>
+        </div>
+      </div>
+    ) :
+    <SignIn provider="github" class="flex items-center gap-x-2 rounded border-[1px] border-[solid] border-neutral-700 px-3 py-1.5 hover:bg-neutral-800 hover:bg-[0] dark:border-neutral-200 dark:hover:bg-neutral-100" title="Login">
+      <svg width="1.2em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 0c5.523 0 10 4.59 10 10.253 0 4.529-2.862 8.371-6.833 9.728-.507.101-.687-.219-.687-.492 0-.338.012-1.442.012-2.814 0-.956-.32-1.58-.679-1.898 2.227-.254 4.567-1.121 4.567-5.059 0-1.12-.388-2.034-1.03-2.752.104-.259.447-1.302-.098-2.714 0 0-.838-.275-2.747 1.051A9.396 9.396 0 0 0 10 4.958a9.375 9.375 0 0 0-2.503.345C5.586 3.977 4.746 4.252 4.746 4.252c-.543 1.412-.2 2.455-.097 2.714-.639.718-1.03 1.632-1.03 2.752 0 3.928 2.335 4.808 4.556 5.067-.286.256-.545.708-.635 1.371-.57.262-2.018.715-2.91-.852 0 0-.529-.985-1.533-1.057 0 0-.975-.013-.068.623 0 0 .655.315 1.11 1.5 0 0 .587 1.83 3.369 1.21.005.857.014 1.665.014 1.909 0 .271-.184.588-.683.493C2.865 18.627 0 14.783 0 10.253 0 4.59 4.478 0 10 0" fill="currentColor" fill-rule="evenodd"/></svg>
+      <span class="sm:inline-block">Acceder</span>
+    </SignIn>
+  }	
+</Auth>
+
+
+<script>
+  const userMenuButton = document.getElementById('user-menu-button') as HTMLElement
+  const userDropdown = document.getElementById('user-dropdown') as HTMLElement
+
+  userMenuButton?.addEventListener('click', () => {
+    const isExpanded: boolean = userMenuButton.getAttribute('aria-expanded') === 'true';
+    userMenuButton.setAttribute('aria-expanded', String(!isExpanded));
+    userDropdown?.classList.toggle('hidden');
+  });
+
+  document.addEventListener('click', (event: MouseEvent) => {
+    if (!userMenuButton?.contains(event.target as Node) && !userDropdown?.contains(event.target as Node)) {
+      userMenuButton?.setAttribute('aria-expanded', 'false');
+      userDropdown?.classList.add('hidden');
+    }
+  });
+</script>
