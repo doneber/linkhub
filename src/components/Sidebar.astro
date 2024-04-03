@@ -31,13 +31,16 @@ aria-label="Sidebar">
 
 <script>
   import {isSidebarOpen} from "@src/store"
+
   isSidebarOpen.subscribe((isOpen)=>{
-    const $sidebar = document.querySelector('#default-sidebar')!
-    $sidebar.classList.remove('hidden')
-    // $sidebar.classList.remove('-translate-x-full')
-    if (isOpen){
-      $sidebar.classList.add('hidden')
-      // $sidebar.classList.add('-translate-x-full')
+    const $sidebar = document.querySelector('#default-sidebar')
+    if ($sidebar) {
+      $sidebar.classList.remove('hidden')
+      // $sidebar.classList.remove('-translate-x-full')
+      if (isOpen){
+        $sidebar.classList.add('hidden')
+        // $sidebar.classList.add('-translate-x-full')
+      }
     }
     
   })
