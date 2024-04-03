@@ -2,7 +2,10 @@
 import { ViewTransitions } from "astro:transitions"
 import Navbar from "@components/Navbar.astro"
 import Footer from "@components/Footer.astro"
+import Sidebar from "@components/Sidebar.astro"
+import { getSession } from 'auth-astro/server';
 
+const session = await getSession(Astro.request)
 interface Props {
   title: string
 	description?: string
@@ -62,9 +65,15 @@ const {
 		<header>
 			<Navbar />
 		</header>
-    <main class="container mx-auto max-w-4xl flex-1 overflow-y-auto p-4 px-8 text-xl">
-      <slot />
-    </main>
+		<div id="app" class="flex flex-wrap min-h-[85vh]">
+			{
+			session &&
+				<Sidebar />
+			}
+			<main class="[grid-area:main] container mx-auto max-w-4xl flex-1 overflow-y-auto p-4 px-8 text-xl">
+				<slot />
+			</main>
+		</div>
     <Footer />
   </body>
 

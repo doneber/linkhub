@@ -8,3 +8,5 @@ export const filtersResources = atom<Filter>({
 })
 
 export const bookmarks = atom<Resource[]>([])
+
+export const isSidebarOpen = atom<boolean>(false)

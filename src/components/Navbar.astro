@@ -1,22 +1,37 @@
 ---
 import Logo from "./Logo.astro"
 import ToggleTheme from "./ToggleTheme"
-import UserDropdown from "@components/UserDropdown.astro"
+import SignOption from "@components/SignOption.astro"
 import Link from "@components/Link.astro"
 import { getSession } from "auth-astro/server"
 
 const session = await getSession(Astro.request)
 ---
+
 <nav class="flex justify-between py-4 px-8">
-  <Link href="/" title="LinkHub">
-		<Logo class="w-5 mt-1" />
-	</Link>
-  <div class="flex items-center gap-3">
-		<Link href="/bookmarks" title="Bookmarks">
-				<svg
-					width="1.2em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 6.2c0-1.12 0-1.68.218-2.108a2 2 0 0 1 .874-.874C6.52 3 7.08 3 8.2 3h7.6c1.12 0 1.68 0 2.108.218a2 2 0 0 1 .874.874C19 4.52 19 5.08 19 6.2V21l-7-5-7 5V6.2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-				</svg>
+	<div class="flex gap-2">
+		{
+			session && (
+			<button
+				class="hover:bg-neutral-200 dark:hover:bg-neutral-800 p-1 rounded"
+				id="sidebarBtn"
+			>
+				<svg width="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+			</button>
+			)
+		}
+		<Link href="/" title="LinkHub">
+			<Logo class="w-5" />
 		</Link>
+	</div>
+  <div class="flex items-center gap-x-3">
+		{
+			session && (
+				<Link href="/home" title="Inicio">
+					<svg width="1.7em" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="m24.155 8.781.175.164 13.072 12.842L36 23.213l-1.8-1.768L34.201 35a2 2 0 0 1-1.851 1.994l-.149.006h-20a2.001 2.001 0 0 1-1.995-1.851L10.201 35 10.2 21.446l-1.798 1.767L7 21.787 20.058 8.958a3 3 0 0 1 4.097-.177Zm-2.586 1.504-.096.087-9.273 9.109L12.201 35l4.999-.001.001-9.999c0-1.054.816-1.918 1.851-1.995l.149-.005h6c1.054 0 1.918.816 1.995 1.851l.005.149-.001 9.999 5.001.001-.001-15.52-9.299-9.136a1.001 1.001 0 0 0-1.332-.059ZM25.201 25h-6l-.001 9.999h6L25.201 25Z" /></svg>
+				</Link>
+			)
+		}
 		<Link href="/all" title="Explorar">
 				<svg width="1.35em" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
 					<path d="M22.707 9.293a1 1 0 0 0-1.023-.242l-9 3a1.001 1.001 0 0 0-.633.633l-3 9a1 1 0 0 0 1.265 1.265l9-3a1.001 1.001 0 0 0 .633-.633l3-9a1 1 0 0 0-.242-1.023ZM11.581 20.42l2.21-6.628 4.419 4.419Z"/>
@@ -25,6 +40,15 @@ const session = await getSession(Astro.request)
 				</svg>
 		</Link>
 		<ToggleTheme client:only/>
-		<UserDropdown />
+		<SignOption />
   </div>
 </nav>
+
+<script>
+	import {isSidebarOpen} from "@src/store"
+
+	document.querySelector('#sidebarBtn')?.addEventListener("click", () => {
+		isSidebarOpen.set(!isSidebarOpen.get())
+	})
+
+</script>

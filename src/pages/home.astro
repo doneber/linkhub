@@ -1,0 +1,16 @@
+---
+import Layout from "@src/layouts/Layout.astro";
+import { getSession } from "auth-astro/server";
+
+const session = await getSession(Astro.request)
+// If the user is not logged in, redirect them to the login page
+if (!session) {
+  return Astro.redirect('/');
+}
+
+const name = session?.user?.name
+---
+
+<Layout title="Home - LinkHub">
+  <h3>¡Bienvenido { name }!</h3>
+</Layout>
