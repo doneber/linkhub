@@ -16,10 +16,11 @@ export const Searcher = () => {
 	useEffect(() => {
 		const urlSearchParams = new URLSearchParams(window.location.search)
 		inputRef.current!.value = urlSearchParams.get("q") ?? ""
+		const tags = urlSearchParams.get("tags") ?? ""
 
 		filtersResources.set({
 			query: inputRef.current?.value ?? "",
-			tags: []
+			tags: [tags]
 		})
 	}, [])
 

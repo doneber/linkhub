@@ -15,24 +15,28 @@ export const SearchResults = () => {
 
 	useEffect(() => {
 		setIsloading(true)
-		fetchResources({ query: filters.query, limit, offset })
-			.then(data => {
-				setResources(data)
-			})
-			.finally(() => {
-				setIsloading(false)
-			})
+		const query = filters.query
+		const tags = filters.tags.join() // eyes
+
+		fetchResources({ query, limit, offset, tags })
+		.then(data => {
+			setResources(data)
+		})
+		.finally(() => {
+			setIsloading(false)
+		})
 	}, [filters])
 
 	const handleNextPagination = () => {
 		setOffset((prevOffset) => {
 			setIsloading(true)
 			const newOffset = prevOffset + limit
-			fetchResources({ query: filters.query, limit, offset: newOffset }).then(data => {
-				setResources(prev => prev.concat(data))
-			}).finally(() => {
-				setIsloading(false)
-			})
+			const query = filters.query
+			const tags = filters.tags.join() // eyes
+
+			fetchResources({ query, limit, offset: newOffset, tags })
+			.then(data => { setResources(prev => prev.concat(data)) })
+			.finally(() => { setIsloading(false) })
 			return newOffset
 		})
 	}
