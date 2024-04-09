@@ -1,5 +1,5 @@
 ---
-import { SearcherQuery } from "@components/searcher/SearcherQuery"
+import Searcher from "@src/components/searcher/Searcher.astro"
 import Layout from "@layouts/Layout.astro"
 import { TagList } from "@src/components/Tag/TagList"
 ---
@@ -10,7 +10,7 @@ import { TagList } from "@src/components/Tag/TagList"
 		<p class="mb-6 text-pretty text-center text-xl text-neutral-600 dark:text-neutral-200">
 			Encuentra las mejores herramientas de desarrollo
 		</p>
-		<SearcherQuery client:load />
+		<Searcher />
 		<div class="min-h-28">
 			<TagList client:load />
 		</div>
