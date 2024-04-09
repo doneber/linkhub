@@ -37,7 +37,6 @@ export const GET: APIRoute = async ({ request }) => {
 	const offset = Number(searchParams.get("offset")) || 0
 
 	let data: Resource[] = structuredClone(fullResourcesData)
-	const total = data.length
 
 	if (query) {
 			const fuse = new Fuse(data, fuseOptions)
@@ -48,6 +47,8 @@ export const GET: APIRoute = async ({ request }) => {
 		const theHashtag = `#${tags}`
 		data = data.filter(item => item.hashtags.includes(theHashtag))
 	}
+
+	const total = data.length
 
 	data = data.slice(offset, offset + limit)
 

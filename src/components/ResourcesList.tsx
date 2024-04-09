@@ -5,9 +5,15 @@ interface Props {
 	resources: Resource[]
 	isLoading: boolean
 	handleNextPagination: () => void
+	isThereMorePages: boolean
 }
 
-export const ResourcesList = ({ resources, isLoading, handleNextPagination }: Props) => {
+export const ResourcesList = ({
+	resources,
+	isLoading,
+	handleNextPagination,
+	isThereMorePages
+}: Props) => {
 	return (
 		<>
 			<ul role="list" class="grid grid-cols-1 gap-3 ">
@@ -18,7 +24,6 @@ export const ResourcesList = ({ resources, isLoading, handleNextPagination }: Pr
 						description={resource.description ?? ""}
 						imageUrl={resource.imageUrl}
 						hashtags={resource.hashtags}
-
 					/>
 				))}
 			</ul>
@@ -27,10 +32,12 @@ export const ResourcesList = ({ resources, isLoading, handleNextPagination }: Pr
 				<div className="text-base text-center">
 					Cargando...
 				</div>
-				:
-				<div className="flex justify-center my-4">
-					<button onClick={handleNextPagination} className="rounded border-[1px] border-[solid] border-neutral-200 px-4 py-2 hover:bg-neutral-100 hover:bg-[0] dark:border-neutral-700 dark:hover:bg-neutral-800">Ver mas</button>
-				</div>
+				: (
+					isThereMorePages &&
+					<div className="flex justify-center my-4">
+						<button onClick={handleNextPagination} className="rounded border-[1px] border-[solid] border-neutral-200 px-4 py-2 hover:bg-neutral-100 hover:bg-[0] dark:border-neutral-700 dark:hover:bg-neutral-800">Ver mas</button>
+					</div>
+				)
 			}
 		</>
 	)
