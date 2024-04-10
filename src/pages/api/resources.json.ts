@@ -10,7 +10,7 @@ const fullResourcesData = await getFullResourcesData()
 const fuseOptions = {
 	isCaseSensitive: false,
 	// includeScore: false,
-	// shouldSort: true,
+	shouldSort: true,
 	// includeMatches: false,
 	// findAllMatches: false,
 	// minMatchCharLength: 1,
@@ -32,28 +32,30 @@ export const GET: APIRoute = async ({ request }) => {
 	const { url } = request
 	const searchParams = new URL(url).searchParams
 	const query = searchParams.get("q")
-	const tags: string | null = searchParams.get("tags") // eyes
+	const tags = searchParams.getAll("tags")
 	const limit = Number(searchParams.get("limit")) || 10
 	const offset = Number(searchParams.get("offset")) || 0
 
 	let data: Resource[] = structuredClone(fullResourcesData)
 
-	if (query) {
+	const cleanQuery = query?.replace(/#(\w+)/g, "") ?? ""
+
+	if (cleanQuery.length > 0) {
 			const fuse = new Fuse(data, fuseOptions)
-			data = fuse.search(query).map(item => item.item)
+			data = fuse.search(cleanQuery).map(item => item.item)
 	}
 
-	if (tags) {
-		const theHashtag = `#${tags}`
-		data = data.filter(item => item.hashtags.includes(theHashtag))
+	if (tags.length > 0) {
+		const hashtags = tags.map(tag => `#${tag}`)
+		data = data.filter(item => {
+			return item.hashtags.some(hashtag => hashtags.includes(hashtag))
+		})
 	}
 
 	const total = data.length
 
-	data = data.slice(offset, offset + limit)
-
 	const res: ResponseFormat<Resource[]> = {
-		data,
+		data: data.slice(offset, offset + limit),
 		info: {
 			limit,
 			offset,
@@ -61,6 +63,5 @@ export const GET: APIRoute = async ({ request }) => {
 		}
 	}
 
-  return new Response(JSON.stringify(res)
-  )
+  return new Response(JSON.stringify(res))
 }

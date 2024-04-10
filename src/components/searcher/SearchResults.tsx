@@ -15,9 +15,8 @@ export const SearchResults = () => {
 	const filters = useStore(filtersResources)
 
 	const getResources = ({ query, tags, offset, limit }: { query: string; tags: string[]; offset: number; limit: number }) => {
-		const tagsJoined = tags.join(",")
 		setIsloading(true)
-		fetchResources({ query, limit, offset, tags: tagsJoined })
+		fetchResources({ query, limit, offset, tags })
 		.then(res => {
 			setResources(prev => prev.concat(res.data))
 			if ((offset + limit) >= res.info.total) {

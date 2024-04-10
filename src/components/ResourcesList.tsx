@@ -28,16 +28,21 @@ export const ResourcesList = ({
 				))}
 			</ul>
 			{
-				isLoading ?
+				isLoading &&
 				<div className="text-base text-center">
 					Cargando...
 				</div>
-				: (
-					isThereMorePages &&
-					<div className="flex justify-center my-4">
-						<button onClick={handleNextPagination} className="rounded border-[1px] border-[solid] border-neutral-200 px-4 py-2 hover:bg-neutral-100 hover:bg-[0] dark:border-neutral-700 dark:hover:bg-neutral-800">Ver mas</button>
-					</div>
-				)
+			}
+			{
+				!isLoading && isThereMorePages &&
+				<div className="flex justify-center my-4">
+					<button onClick={handleNextPagination} className="rounded border-[1px] border-[solid] border-neutral-200 px-4 py-2 hover:bg-neutral-100 hover:bg-[0] dark:border-neutral-700 dark:hover:bg-neutral-800">Ver mas</button>
+				</div>
+			}
+			{
+				!isLoading && resources.length === 0 && <p>
+					No hay resultados
+				</p>
 			}
 		</>
 	)
